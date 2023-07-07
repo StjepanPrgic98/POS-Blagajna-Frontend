@@ -1,0 +1,69 @@
+<div class="row" style="margin-top: 10px;">
+  <div class="col-md-2">
+      <button type="button" class="btn btn-primary col-3 add-product-button" routerLink="/products"><i class="fa fa-arrow-left fa-lg" aria-hidden="true"></i></button>
+  </div>
+</div>
+<div style="margin-top: 100px;">
+  <div class="row" *ngIf="product">
+      <div class="col-md-1"></div>
+      <div class="col-md-2 text-center">
+          <div class="form-group">
+              <label class="form-label custom-label" for="typeNumber">Code</label>
+              <input type="number" id="typeNumber" name="StorageQuantity" class="form-control" [(ngModel)]="product.code">
+          </div> 
+      </div>
+      <div class="col-md-2 text-center">
+          <div class="form-group">
+              <label class="form-label custom-label">Name</label>
+              <input type="text" class="form-control" id="usr" name="Name" [(ngModel)]="product.name">
+            </div>
+      </div>
+      <div class="col-md-2 text-center">
+          <div class="form-group">
+              <label class="form-label custom-label">Unit of Measure</label>
+              <input type="text" class="form-control" id="usr" name="UnitOfMeasure" [(ngModel)]="product.unitOfMeasure">
+            </div>
+      </div>
+      <div class="col-md-2 text-center">
+          <div class="form-group">
+              <label class="form-label custom-label" for="typeNumber">Price</label>
+              <input type="number" id="typeNumber" name="Price" class="form-control" [(ngModel)]="product.price">
+          </div> 
+      </div>
+      <div class="col-md-2 text-center">
+          <div class="form-group">
+              <label class="form-label custom-label" for="typeNumber">Storage Quantity</label>
+              <input type="number" id="typeNumber" name="StorageQuantity" class="form-control" [(ngModel)]="product.storageQuantity">
+          </div> 
+      </div>
+      <div class="col-md-12">
+          <table class="table table-hover" style="margin-top: 50px;">
+              <thead>
+                <tr>
+                  <th>Product Code</th>
+                  <th>Product Name</th>
+                  <th>Unit of Measure</th>
+                  <th>Price</th>
+                  <th>Storage Quantity</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngIf="product">
+                  <td>{{product.code}}</td>
+                  <td>{{product.name}}</td>
+                  <td>{{product.unitOfMeasure}}</td>
+                  <td>{{product.price}}</td>
+                  <td>{{product.storageQuantity}}</td>
+                </tr>
+              </tbody>
+            </table>
+      </div>
+      <div class="col-md-12 text-end">
+        <button type="button" class="btn btn-basic col-2 delete-product-button" (click)="DeleteProduct()">Delete</button>
+    </div>
+      <div class="col-md-11 text-center" style="margin-top: 80px;">
+          <button type="button" class="btn btn-primary col-3 add-product-button" (click)="EditProduct()">Complete</button>
+      </div>
+      
+  </div> 
+</div>

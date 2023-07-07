@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ProductService } from 'src/app/_services/product.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { ProductService } from 'src/app/_services/product.service';
 })
 export class MainProductPageComponent {
 
-  constructor(private productService: ProductService){}
+  constructor(private productService: ProductService, private route: ActivatedRoute){}
 
   products: any
   productCode: number | undefined;

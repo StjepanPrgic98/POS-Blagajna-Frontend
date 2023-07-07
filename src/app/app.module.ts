@@ -5,21 +5,24 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ShowProductsComponent } from './products/show-products/show-products.component';
 import { HomePageComponent } from './home/home-page/home-page.component';
 import { SideNavComponent } from './home/side-nav/side-nav.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { MainProductPageComponent } from './products/main-product-page/main-product-page.component';
+import { CreateProductPageComponent } from './products/create-product-page/create-product-page.component';
+import { ToastrModule } from 'ngx-toastr';
+import { EditProductPageComponent } from './products/edit-product-page/edit-product-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ShowProductsComponent,
     HomePageComponent,
     SideNavComponent,
-    MainProductPageComponent
+    MainProductPageComponent,
+    CreateProductPageComponent,
+    EditProductPageComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +30,13 @@ import { MainProductPageComponent } from './products/main-product-page/main-prod
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
-    CollapseModule.forRoot()
+    CollapseModule.forRoot(),
+    ToastrModule.forRoot(
+      {
+        positionClass: "toast-bottom-right",
+        timeOut: 5000,
+        progressBar: true,
+      })
   ],
   providers: [],
   bootstrap: [AppComponent]

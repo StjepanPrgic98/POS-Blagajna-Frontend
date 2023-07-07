@@ -1,43 +1,54 @@
 <div class="row" style="margin-top: 50px;">
-  <div class="col-md-2"></div>
   <div class="col-md-2">
-    <form #searchProductByCodeForm="ngForm">
-      <div class="form-group">
-        <label class="form-label" for="typeNumber">Search product by code</label>
-        <input type="number" id="typeNumber" name="productCode" [(ngModel)]="productCode" class="form-control" (input)="SearchProductsThatContainCode()" />
-      </div>   
-    </form>
+  </div>
+  <div class="col-md-3">
+  
   </div>
   <div class="col-md-2"></div>
   <div class="col-md-2">
     <form #searchProductByNameForm="ngForm">
       <div class="form-group">
-        <label class="form-label">Search product by name</label>
+        <label class="form-label custom-label">Search product by name</label>
         <input type="text" class="form-control" id="usr" name="productName" [(ngModel)]="productName" (input)="SearchProductsThatContainName()">
       </div>
     </form>
   </div>
-  <div class="col-md-12" style="margin-top: 100px;">
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>Product Code</th>
-          <th>Product Name</th>
-          <th>Unit of Measure</th>
-          <th>Price</th>
-          <th>Storage Quantity</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let product of products">
-          <td>{{product.code}}</td>
-          <td>{{product.name}}</td>
-          <td>{{product.unitOfMeasure}}</td>
-          <td>{{product.price}}</td>
-          <td>{{product.storageQuantity}}</td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="col-md-2">
+    <form #searchProductByCodeForm="ngForm">
+      <div class="form-group">
+        <label class="form-label custom-label" for="typeNumber">Search product by code</label>
+        <input type="number" id="typeNumber" name="productCode" [(ngModel)]="productCode" class="form-control" (input)="SearchProductsThatContainCode()" />
+      </div>   
+    </form>
+  </div>
+  <div class="col-md-12" style="margin-top: 50px;">
+    <button type="button" class="btn add-product-button col-2" routerLink="/products/create">Add Product <i class="fa fa-plus" aria-hidden="true" style="margin-left: 10px;"></i></button>
+    <div class="scrollable-container">
+      <table class="table table-hover" style="margin-top: 20px;">
+        <thead>
+          <tr>
+            <th>Product Code</th>
+            <th>Product Name</th>
+            <th>Unit of Measure</th>
+            <th>Price</th>
+            <th>Storage Quantity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let product of products">
+            <tr routerLink="/products/edit/{{product.name}}">
+              <td>{{product.code}}</td>
+              <td>{{product.name}}</td>
+              <td>{{product.unitOfMeasure}}</td>
+              <td>{{product.price}} $</td>
+              <td>{{product.storageQuantity}}</td>
+            </tr>
+          </ng-container>
+          
+        </tbody>
+      </table>
+    </div>
+    
   
   </div>
 </div>
