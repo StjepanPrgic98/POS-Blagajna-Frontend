@@ -10,13 +10,15 @@ import { SideNavComponent } from './home/side-nav/side-nav.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { MainProductPageComponent } from './products/main-product-page/main-product-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ShowProductsComponent,
     HomePageComponent,
-    SideNavComponent
+    SideNavComponent,
+    MainProductPageComponent
   ],
   imports: [
     BrowserModule,
