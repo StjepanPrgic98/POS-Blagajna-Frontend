@@ -1,0 +1,17 @@
+.side-nav
+{
+    background-color: rgba(128, 128, 128, 0.186);
+}
+
+.custom-link
+{
+    font-size: 20px;
+    margin-bottom: 10px;   
+    background-color: rgba(128, 128, 128, 0.248);
+}
+
+.title
+{
+    font-size: 25px;
+    font-weight: bold;
+}
