@@ -11,18 +11,45 @@ export class MainProductPageComponent {
   constructor(private productService: ProductService){}
 
   products: any
+  productCode: number | undefined;
+  productName: string = "";
 
   ngOnInit()
   {
     this.GetProducts()
+    this.productCode = undefined;
   }
 
   GetProducts()
   {
     this.productService.GetProducts().subscribe(
       {
-        next: response => {this.products = response, console.log(response)},
+        next: response => {this.products = response},
         error: error => console.log(error)      
+      })
+  }
+
+  SearchProductsThatContainCode()
+  {
+    this.productName = ""
+    if(this.productCode == undefined ||this.productCode <= 0 || this.productCode == null){this.GetProducts(); return}
+
+    this.productService.GetProductsThatContainCode(this.productCode).subscribe(
+      {
+        next: response => {this.products = response},
+        error: error => console.log(error)
+      })
+  }
+
+  SearchProductsThatContainName()
+  {
+    this.productCode = undefined
+    if(this.productName == ""){this.GetProducts(); return;}
+
+    this.productService.GetProductsThatContainName(this.productName).subscribe(
+      {
+        next: response => {this.products = response},
+        error: error => console.log(error)
       })
   }
 

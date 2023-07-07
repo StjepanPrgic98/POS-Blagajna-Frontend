@@ -1,17 +1,21 @@
 <div class="row" style="margin-top: 50px;">
   <div class="col-md-2"></div>
   <div class="col-md-2">
-    <div class="form-outline">
-      <label class="form-label" for="typeNumber">Search by product code</label>
-      <input type="number" id="typeNumber" class="form-control" />
-    </div>   
+    <form #searchProductByCodeForm="ngForm">
+      <div class="form-group">
+        <label class="form-label" for="typeNumber">Search product by code</label>
+        <input type="number" id="typeNumber" name="productCode" [(ngModel)]="productCode" class="form-control" (input)="SearchProductsThatContainCode()" />
+      </div>   
+    </form>
   </div>
   <div class="col-md-2"></div>
   <div class="col-md-2">
-    <div class="form-group">
-      <label class="form-label">Search by product name</label>
-      <input type="text" class="form-control" id="usr">
-    </div>
+    <form #searchProductByNameForm="ngForm">
+      <div class="form-group">
+        <label class="form-label">Search product by name</label>
+        <input type="text" class="form-control" id="usr" name="productName" [(ngModel)]="productName" (input)="SearchProductsThatContainName()">
+      </div>
+    </form>
   </div>
   <div class="col-md-12" style="margin-top: 100px;">
     <table class="table table-hover">
