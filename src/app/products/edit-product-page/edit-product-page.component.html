@@ -3,8 +3,11 @@
       <button type="button" class="btn btn-primary col-3 add-product-button" routerLink="/products"><i class="fa fa-arrow-left fa-lg" aria-hidden="true"></i></button>
   </div>
 </div>
-<div style="margin-top: 100px;">
-  <div class="row" *ngIf="product">
+<div style="margin-top: 30px;">
+  <div class="col-md-12 text-end">
+    <button type="button" class="btn btn-basic col-2 delete-product-button" (click)="DeleteProduct()">Delete</button>
+</div>
+  <div class="row" *ngIf="product" style="margin-top: 30px;">
       <div class="col-md-1"></div>
       <div class="col-md-2 text-center">
           <div class="form-group">
@@ -58,9 +61,6 @@
               </tbody>
             </table>
       </div>
-      <div class="col-md-12 text-end">
-        <button type="button" class="btn btn-basic col-2 delete-product-button" (click)="DeleteProduct()">Delete</button>
-    </div>
       <div class="col-md-11 text-center" style="margin-top: 80px;">
           <button type="button" class="btn btn-primary col-3 add-product-button" (click)="EditProduct()">Complete</button>
       </div>

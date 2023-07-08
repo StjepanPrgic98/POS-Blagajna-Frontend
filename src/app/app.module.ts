@@ -14,6 +14,7 @@ import { MainProductPageComponent } from './products/main-product-page/main-prod
 import { CreateProductPageComponent } from './products/create-product-page/create-product-page.component';
 import { ToastrModule } from 'ngx-toastr';
 import { EditProductPageComponent } from './products/edit-product-page/edit-product-page.component';
+import { MainPosPageComponent } from './pos/main-pos-page/main-pos-page.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { EditProductPageComponent } from './products/edit-product-page/edit-prod
     SideNavComponent,
     MainProductPageComponent,
     CreateProductPageComponent,
-    EditProductPageComponent
+    EditProductPageComponent,
+    MainPosPageComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,33 @@
+.custom-label
+{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.custom-well {
+    background-color: rgba(63, 63, 63, 0.479);
+    border-radius: 10px; /* Adjust the border radius as desired */
+    font-size: 20px;
+    color: white;
+}
+
+.clock {
+    text-align: center;
+    margin: 20px;
+  }
+  
+  .time {
+    font-size: 25px;
+    font-weight: bold;
+  }
+  
+  .date {
+    font-size: 20px;
+    font-weight: normal;
+    margin-top: 10px;
+  }
+  
+  .scrollable-container {
+    max-height: 200px; /* Adjust the desired height */
+    overflow-y: auto;
+  }

@@ -1,0 +1,87 @@
+<div class="row" style="margin-top: 30px;">
+    <div class="col-md-2">
+        <label class="form-label custom-label" for="typeNumber">Receipt Number:</label>
+    </div>
+    <div class="col-md-1">
+        <div class="well custom-well text-center">1234</div>
+    </div>
+    <div class="col-md-7"></div>
+    <div class="col-md-2">
+        <div class="clock">
+            <div class="date">{{ date }}</div>
+            <div class="time">{{ time }}</div>
+          </div>                   
+    </div>
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-3">
+    
+    </div>
+    <div class="col-md-2"></div>
+    <div class="col-md-2">
+      <form #searchProductByNameForm="ngForm">
+        <div class="form-group">
+          <label class="form-label custom-label">Search product by name</label>
+          <input type="text" class="form-control" id="usr" name="productName" [(ngModel)]="productName" (input)="SearchProductsThatContainName()">
+        </div>
+      </form>
+    </div>
+    <div class="col-md-2">
+      <form #searchProductByCodeForm="ngForm">
+        <div class="form-group">
+          <label class="form-label custom-label" for="typeNumber">Search product by code</label>
+          <input type="number" id="typeNumber" name="productCode" [(ngModel)]="productCode" class="form-control" (input)="SearchProductsThatContainCode()" />
+        </div>   
+      </form>
+    </div>
+    <div class="scrollable-container" style="margin-top: 20px;">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Product Code</th>
+              <th>Product Name</th>
+              <th>Unit of Measure</th>
+              <th>Price</th>
+              <th>Storage Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let product of products">
+              <tr (click)="CreateReceiptItem(product)">
+                <td>{{product.code}}</td>
+                <td>{{product.name}}</td>
+                <td>{{product.unitOfMeasure}}</td>
+                <td>{{product.price}} $</td>
+                <td>{{product.storageQuantity}}</td>
+              </tr>
+            </ng-container>
+            
+          </tbody>
+        </table>
+      </div>
+    <div class="col-md-12">
+        <table class="table table-hover" style="margin-top: 50px;">
+            <thead>
+              <tr>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Discount%</th>
+                <th>Total Price</th>
+              </tr>
+            </thead>
+            <tbody>
+            <ng-container *ngFor="let receiptItem of receiptItems">
+                <tr>
+                    <td>{{receiptItem.ProductName}}</td>
+                    <td>{{receiptItem.Quantity}}</td>
+                    <td>{{receiptItem.Price}}</td>
+                    <td>{{receiptItem.DiscountPercentage}}</td>
+                    <td>{{receiptItem.TotalPrice}}</td>
+                  </tr>
+            </ng-container>             
+            </tbody>
+          </table>
+    </div>
+</div>
+
