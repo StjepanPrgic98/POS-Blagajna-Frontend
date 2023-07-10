@@ -1,17 +1,11 @@
 <div class="row" style="margin-top: 30px;">
     <div class="col-md-2">
-        <label class="form-label custom-label" for="typeNumber">Receipt Number:</label>
+        <label class="form-label receipt-number">Receipt Number:</label>
     </div>
     <div class="col-md-1">
-        <div class="well custom-well text-center">1234</div>
+        <div class="well well-sm card card-block text-center">1234</div>
     </div>
-    <div class="col-md-7"></div>
-    <div class="col-md-2">
-    </div>
-    <div class="col-md-3">
-    
-    </div>
-    <div class="col-md-2"></div>
+    <div class="col-md-4"></div>
     <div class="col-md-2">
       <form #searchProductByNameForm="ngForm">
         <div class="form-group">
@@ -54,8 +48,8 @@
         </table>
       </div>
     <div class="col-md-12">
-    <div class="scrollable-container-receipt-items" style="margin-top: 20px;">
-        <table class="table table-bordered receipt-item-table" style="margin-top: 50px;">
+    <div class="scrollable-container-receipt-items">
+        <table class="table table-bordered receipt-item-table" style="margin-top: 30px;">
             <thead>
               <tr>
                 <th>Product Name</th>
@@ -94,5 +88,33 @@
           </table>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered receipt-item-table" style="margin-top: 30px;">
+                <thead>
+                  <tr class="text-end">
+                    <th>Tax</th>
+                    <th>Total discounts</th>
+                    <th>Sub total</th>
+                    <th>TOTAL</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr class="text-end">
+                        <td>{{receiptTotals.Tax}}</td>
+                        <td>{{receiptTotals.TotalDiscounts}}</td>
+                        <td>{{receiptTotals.SubTotal}}</td>
+                        <td class="total-price">{{receiptTotals.Total}}</td>
+                    </tr>           
+                </tbody>
+              </table>
+        </div>
+    </div>
+
+    
+        
+        
+  
 </div>
 

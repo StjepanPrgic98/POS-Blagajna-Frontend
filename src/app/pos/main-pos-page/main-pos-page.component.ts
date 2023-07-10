@@ -1,6 +1,7 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Renderer2 } from '@angular/core';
 import { Product } from 'src/app/_models/products/Product';
 import { NewReceiptItem } from 'src/app/_models/receipt-items/NewReceiptItem';
+import { ReceiptTotals } from 'src/app/_models/receipts/ReceiptTotals';
 import { ProductService } from 'src/app/_services/product.service';
 
 @Component({
@@ -21,8 +22,13 @@ export class MainPosPageComponent {
   receiptItems: NewReceiptItem[] = []
   receiptItemDiscountPercentage: number = 10
 
+  receiptTotals: ReceiptTotals = {Tax: 0, TotalDiscounts: 0, SubTotal: 0, Total: 0}
+  baseTax: number = 2
 
-  constructor(private productService: ProductService, private changeDetector: ChangeDetectorRef) {
+
+  constructor(private productService: ProductService, private changeDetector: ChangeDetectorRef,
+    private elementRef: ElementRef, private renderer: Renderer2
+    ) {
 
   }
 
@@ -67,7 +73,9 @@ export class MainPosPageComponent {
 
     this.receiptItems.push(this.newReceiptItem)
     
-    console.log(this.receiptItems)
+    this.scrollToBottomWithDelay();
+
+    this.CalculateReceiptTotals()
   }
 
 
@@ -89,6 +97,7 @@ export class MainPosPageComponent {
        - existingReceiptItem.DiscountAmmount
     }
 
+    this.CalculateReceiptTotals()
     
   }
 
@@ -110,6 +119,8 @@ export class MainPosPageComponent {
       existingReceiptItem.TotalPrice = existingReceiptItem.Price
        - existingReceiptItem.DiscountAmmount
     }
+
+    this.CalculateReceiptTotals()
   }
 
   GetCurrentProductPrice(productName: string)
@@ -130,6 +141,30 @@ export class MainPosPageComponent {
       this.receiptItems.splice(index, 1);
     }
     console.log(this.receiptItems)
+  }
+
+  CalculateReceiptTotals()
+  {
+    this.ResetReceiptTotals()
+
+    for (let i = 0; i < this.receiptItems.length; i++)
+    {
+      this.receiptTotals.TotalDiscounts += this.receiptItems[i].DiscountAmmount
+      this.receiptTotals.SubTotal += this.receiptItems[i].TotalPrice    
+    }
+    
+    const tax = this.receiptTotals.SubTotal * this.baseTax / 100;
+    this.receiptTotals.Tax = parseFloat(tax.toFixed(2));
+    this.receiptTotals.Total = parseFloat((this.receiptTotals.SubTotal - this.receiptTotals.TotalDiscounts + this.receiptTotals.Tax).toFixed(2))
+
+  }
+
+  ResetReceiptTotals()
+  {
+    this.receiptTotals.SubTotal = 0
+    this.receiptTotals.Tax = 0
+    this.receiptTotals.Total = 0
+    this.receiptTotals.TotalDiscounts = 0
   }
   
 
@@ -160,6 +195,15 @@ export class MainPosPageComponent {
         next: response => {this.products = response},
         error: error => console.log(error)
       })
+  }
+
+ 
+
+  scrollToBottomWithDelay(delay: number = 50) {
+    setTimeout(() => {
+      const container = this.elementRef.nativeElement.querySelector('.scrollable-container-receipt-items');
+      container.scrollTop = container.scrollHeight;
+    }, delay);
   }
 
   }
