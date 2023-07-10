@@ -15,6 +15,8 @@ import { CreateProductPageComponent } from './products/create-product-page/creat
 import { ToastrModule } from 'ngx-toastr';
 import { EditProductPageComponent } from './products/edit-product-page/edit-product-page.component';
 import { MainPosPageComponent } from './pos/main-pos-page/main-pos-page.component';
+import { MainCustomerPageComponent } from './customers/main-customer-page/main-customer-page.component';
+import { CreateCustomerPageComponent } from './customers/create-customer-page/create-customer-page.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { MainPosPageComponent } from './pos/main-pos-page/main-pos-page.componen
     MainProductPageComponent,
     CreateProductPageComponent,
     EditProductPageComponent,
-    MainPosPageComponent
+    MainPosPageComponent,
+    MainCustomerPageComponent,
+    CreateCustomerPageComponent
   ],
   imports: [
     BrowserModule,

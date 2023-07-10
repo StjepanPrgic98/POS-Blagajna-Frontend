@@ -5,6 +5,8 @@ import { MainProductPageComponent } from './products/main-product-page/main-prod
 import { CreateProductPageComponent } from './products/create-product-page/create-product-page.component';
 import { EditProductPageComponent } from './products/edit-product-page/edit-product-page.component';
 import { MainPosPageComponent } from './pos/main-pos-page/main-pos-page.component';
+import { MainCustomerPageComponent } from './customers/main-customer-page/main-customer-page.component';
+import { CreateCustomerPageComponent } from './customers/create-customer-page/create-customer-page.component';
 
 const routes: Routes = 
 [
@@ -14,6 +16,9 @@ const routes: Routes =
   {path: "products/edit/:name", component: EditProductPageComponent},
 
   {path: "pos", component: MainPosPageComponent},
+
+  {path: "customers", component: MainCustomerPageComponent},
+  {path: "customers/create", component: CreateCustomerPageComponent},
 ];
 
 @NgModule({

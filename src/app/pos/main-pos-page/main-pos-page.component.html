@@ -26,21 +26,21 @@
         <table class="table table-hover">
           <thead>
             <tr>
-              <th>Product Code</th>
-              <th>Product Name</th>
-              <th>Unit of Measure</th>
-              <th>Price</th>
-              <th>Storage Quantity</th>
+              <th class="table-titles">Product Code</th>
+              <th class="table-titles">Product Name</th>
+              <th class="table-titles">Unit of Measure</th>
+              <th class="table-titles">Price</th>
+              <th class="table-titles">Storage Quantity</th>
             </tr>
           </thead>
           <tbody>
             <ng-container *ngFor="let product of products">
               <tr (click)="CreateReceiptItem(product)">
-                <td>{{product.code}}</td>
-                <td>{{product.name}}</td>
-                <td>{{product.unitOfMeasure}}</td>
-                <td>{{product.price}} $</td>
-                <td>{{product.storageQuantity}}</td>
+                <td class="table-data">{{product.code}}</td>
+                <td class="table-data">{{product.name}}</td>
+                <td class="table-data">{{product.unitOfMeasure}}</td>
+                <td class="table-data">{{product.price}} $</td>
+                <td class="table-data">{{product.storageQuantity}}</td>
               </tr>
             </ng-container>
             
@@ -52,18 +52,18 @@
         <table class="table table-bordered receipt-item-table" style="margin-top: 30px;">
             <thead>
               <tr>
-                <th>Product Name</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Discount%</th>
-                <th>Discount Ammount</th>
-                <th>Total Price</th>
+                <th class="table-titles">Product Name</th>
+                <th class="table-titles">Quantity</th>
+                <th class="table-titles">Price</th>
+                <th class="table-titles">Discount%</th>
+                <th class="table-titles">Discount Ammount</th>
+                <th class="table-titles">Total Price</th>
               </tr>
             </thead>
             <tbody>
             <ng-container *ngFor="let receiptItem of receiptItems">
                 <tr>
-                    <td>{{receiptItem.ProductName}}</td>
+                    <td class="table-data">{{receiptItem.ProductName}}</td>
                     <td class="smaller-table-data">
                         <form #addProductQuantityForm="ngForm">
                             <div class="form-group">
@@ -71,7 +71,7 @@
                             </div>   
                           </form>
                     </td>
-                    <td>{{receiptItem.Price}}</td>
+                    <td class="table-data">{{receiptItem.Price}}</td>
                     <td class="smaller-table-data">
                         <form #addProductDiscountForm="ngForm">
                             <div class="form-group">
@@ -79,8 +79,8 @@
                             </div>   
                           </form>
                     </td>
-                    <td>{{receiptItem.DiscountAmmount}}</td>
-                    <td>{{receiptItem.TotalPrice}}</td>
+                    <td class="table-data">{{receiptItem.DiscountAmmount}}</td>
+                    <td class="table-data">{{receiptItem.TotalPrice}}</td>
                     <td class="delete-table-row"><button type="button" class="btn delete-button" (click)="DeleteReceiptItem(receiptItem)">Delete</button></td>
                   </tr>
             </ng-container>             
@@ -94,17 +94,17 @@
             <table class="table table-bordered receipt-item-table" style="margin-top: 30px;">
                 <thead>
                   <tr class="text-end">
-                    <th>Tax</th>
-                    <th>Total discounts</th>
-                    <th>Sub total</th>
-                    <th>TOTAL</th>
+                    <th class="table-titles">Tax</th>
+                    <th class="table-titles">Total discounts</th>
+                    <th class="table-titles">Sub total</th>
+                    <th class="table-titles">TOTAL</th>
                   </tr>
                 </thead>
                 <tbody>
                     <tr class="text-end">
-                        <td>{{receiptTotals.Tax}}</td>
-                        <td>{{receiptTotals.TotalDiscounts}}</td>
-                        <td>{{receiptTotals.SubTotal}}</td>
+                        <td class="table-data">{{receiptTotals.Tax}}</td>
+                        <td class="table-data">{{receiptTotals.TotalDiscounts}}</td>
+                        <td class="table-data">{{receiptTotals.SubTotal}}</td>
                         <td class="total-price">{{receiptTotals.Total}}</td>
                     </tr>           
                 </tbody>

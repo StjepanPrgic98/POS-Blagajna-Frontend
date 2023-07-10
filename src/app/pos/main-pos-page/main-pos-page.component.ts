@@ -79,45 +79,51 @@ export class MainPosPageComponent {
   }
 
 
-  SubmitProductQuantity(existingReceiptItem: NewReceiptItem)
+  SubmitProductQuantity(existingReceiptItem: NewReceiptItem) 
   {
-    this.GetCurrentProductPrice(existingReceiptItem.ProductName)
-    
-    if(!this.productPrice){return}
-    if(existingReceiptItem.Quantity <= 0 || existingReceiptItem.Quantity == null){existingReceiptItem.Quantity = 1}
-   
-    existingReceiptItem.Price = this.productPrice * existingReceiptItem.Quantity
 
-    if(existingReceiptItem.DiscountPercentage == 0){existingReceiptItem.TotalPrice = existingReceiptItem.Price}
+    this.GetCurrentProductPrice(existingReceiptItem.ProductName);
+  
+    if (!this.productPrice){return;}
+    
+    if (existingReceiptItem.Quantity <= 0 || existingReceiptItem.Quantity == null) 
+    {
+      existingReceiptItem.Quantity = 1;
+    }
+    
+    existingReceiptItem.Price = +(this.productPrice * existingReceiptItem.Quantity).toFixed(2);
+  
+    if (existingReceiptItem.DiscountPercentage == 0) 
+    {
+      existingReceiptItem.TotalPrice = existingReceiptItem.Price;
+    } 
     else
     {
-      existingReceiptItem.DiscountAmmount = (existingReceiptItem.Price * existingReceiptItem.DiscountPercentage) / 100
-
-      existingReceiptItem.TotalPrice = existingReceiptItem.Price
-       - existingReceiptItem.DiscountAmmount
+      existingReceiptItem.DiscountAmmount = +(existingReceiptItem.Price * existingReceiptItem.DiscountPercentage / 100).toFixed(2);
+      existingReceiptItem.TotalPrice = +(existingReceiptItem.Price - existingReceiptItem.DiscountAmmount).toFixed(2);
     }
-
-    this.CalculateReceiptTotals()
-    
+  
+    this.CalculateReceiptTotals();
   }
+  
 
 
   SubmitProductDiscount(existingReceiptItem: NewReceiptItem)
   {
-    console.log(existingReceiptItem.DiscountPercentage)
 
     if(existingReceiptItem.DiscountPercentage < 0 || existingReceiptItem.DiscountPercentage == null || existingReceiptItem.DiscountPercentage > 100)
     {
       existingReceiptItem.DiscountPercentage = 0
     }
 
-    if(existingReceiptItem.DiscountPercentage == 0){existingReceiptItem.TotalPrice = existingReceiptItem.Price}
+    if (existingReceiptItem.DiscountPercentage == 0) 
+    {
+      existingReceiptItem.TotalPrice = existingReceiptItem.Price;
+    } 
     else
     {
-      existingReceiptItem.DiscountAmmount = (existingReceiptItem.Price * existingReceiptItem.DiscountPercentage) / 100
-
-      existingReceiptItem.TotalPrice = existingReceiptItem.Price
-       - existingReceiptItem.DiscountAmmount
+      existingReceiptItem.DiscountAmmount = +(existingReceiptItem.Price * existingReceiptItem.DiscountPercentage / 100).toFixed(2);
+      existingReceiptItem.TotalPrice = +(existingReceiptItem.Price - existingReceiptItem.DiscountAmmount).toFixed(2);
     }
 
     this.CalculateReceiptTotals()
@@ -135,11 +141,16 @@ export class MainPosPageComponent {
     }
   }
 
-  DeleteReceiptItem(receiptItemToDelete: NewReceiptItem) {
+  DeleteReceiptItem(receiptItemToDelete: NewReceiptItem) 
+  {
+
     const index = this.receiptItems.indexOf(receiptItemToDelete);
-    if (index !== -1) {
+
+    if (index !== -1) 
+    {
       this.receiptItems.splice(index, 1);
     }
+
     console.log(this.receiptItems)
   }
 
@@ -147,11 +158,12 @@ export class MainPosPageComponent {
   {
     this.ResetReceiptTotals()
 
-    for (let i = 0; i < this.receiptItems.length; i++)
+    for (let i = 0; i < this.receiptItems.length; i++) 
     {
-      this.receiptTotals.TotalDiscounts += this.receiptItems[i].DiscountAmmount
-      this.receiptTotals.SubTotal += this.receiptItems[i].TotalPrice    
+      this.receiptTotals.TotalDiscounts += +(this.receiptItems[i].DiscountAmmount.toFixed(2));
+      this.receiptTotals.SubTotal += +(this.receiptItems[i].TotalPrice.toFixed(2));
     }
+    
     
     const tax = this.receiptTotals.SubTotal * this.baseTax / 100;
     this.receiptTotals.Tax = parseFloat(tax.toFixed(2));
