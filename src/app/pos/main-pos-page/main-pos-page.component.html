@@ -7,12 +7,6 @@
     </div>
     <div class="col-md-7"></div>
     <div class="col-md-2">
-        <div class="clock">
-            <div class="date">{{ date }}</div>
-            <div class="time">{{ time }}</div>
-          </div>                   
-    </div>
-    <div class="col-md-2">
     </div>
     <div class="col-md-3">
     
@@ -34,7 +28,7 @@
         </div>   
       </form>
     </div>
-    <div class="scrollable-container" style="margin-top: 20px;">
+    <div class="scrollable-container products-table" style="margin-top: 20px;">
         <table class="table table-hover">
           <thead>
             <tr>
@@ -60,13 +54,15 @@
         </table>
       </div>
     <div class="col-md-12">
-        <table class="table table-hover" style="margin-top: 50px;">
+    <div class="scrollable-container-receipt-items" style="margin-top: 20px;">
+        <table class="table table-bordered receipt-item-table" style="margin-top: 50px;">
             <thead>
               <tr>
                 <th>Product Name</th>
                 <th>Quantity</th>
                 <th>Price</th>
                 <th>Discount%</th>
+                <th>Discount Ammount</th>
                 <th>Total Price</th>
               </tr>
             </thead>
@@ -74,14 +70,29 @@
             <ng-container *ngFor="let receiptItem of receiptItems">
                 <tr>
                     <td>{{receiptItem.ProductName}}</td>
-                    <td>{{receiptItem.Quantity}}</td>
+                    <td class="smaller-table-data">
+                        <form #addProductQuantityForm="ngForm">
+                            <div class="form-group">
+                              <input type="number" min="1"  name="Quantity" [(ngModel)]="receiptItem.Quantity" class="form-control smaller-input" (input)="SubmitProductQuantity(receiptItem)">
+                            </div>   
+                          </form>
+                    </td>
                     <td>{{receiptItem.Price}}</td>
-                    <td>{{receiptItem.DiscountPercentage}}</td>
+                    <td class="smaller-table-data">
+                        <form #addProductDiscountForm="ngForm">
+                            <div class="form-group">
+                              <input type="number"  name="DiscountPercentage" [(ngModel)]="receiptItem.DiscountPercentage" class="form-control smaller-input" (input)="SubmitProductDiscount(receiptItem)" />
+                            </div>   
+                          </form>
+                    </td>
+                    <td>{{receiptItem.DiscountAmmount}}</td>
                     <td>{{receiptItem.TotalPrice}}</td>
+                    <td class="delete-table-row"><button type="button" class="btn delete-button" (click)="DeleteReceiptItem(receiptItem)">Delete</button></td>
                   </tr>
             </ng-container>             
             </tbody>
           </table>
+        </div>
     </div>
 </div>
 

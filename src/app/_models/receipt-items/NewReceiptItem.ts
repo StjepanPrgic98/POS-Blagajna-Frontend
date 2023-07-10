@@ -4,5 +4,6 @@ export interface NewReceiptItem
     Quantity: number
     Price: number
     DiscountPercentage: number
+    DiscountAmmount: number
     TotalPrice: number
 }

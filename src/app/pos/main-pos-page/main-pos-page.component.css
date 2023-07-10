@@ -1,33 +1,72 @@
 .custom-label
 {
-    font-size: 20px;
+    font-size: 12px;
     font-weight: bold;
 }
 
 .custom-well {
     background-color: rgba(63, 63, 63, 0.479);
     border-radius: 10px; /* Adjust the border radius as desired */
-    font-size: 20px;
+    font-size: 12px;
     color: white;
+}
+
+.delete-button
+{
+  background-color: red;
+  border-radius: 10px; /* Adjust the border radius as desired */
+  font-size: 12px;
+  color: white;
+  font-weight: bold;
+  width: 100%;
+}
+
+.delete-table-row
+{
+  width: 5%;
 }
 
 .clock {
     text-align: center;
-    margin: 20px;
+    margin: 12px;
   }
   
   .time {
-    font-size: 25px;
+    font-size: 17px;
     font-weight: bold;
   }
   
   .date {
-    font-size: 20px;
+    font-size: 12px;
     font-weight: normal;
     margin-top: 10px;
   }
   
   .scrollable-container {
-    max-height: 200px; /* Adjust the desired height */
+    max-height: 150px; /* Adjust the desired height */
     overflow-y: auto;
   }
+  .scrollable-container-receipt-items {
+    max-height: 350px; /* Adjust the desired height */
+    overflow-y: auto;
+  }
+.smaller-input
+{
+  width: 50%;
+  font-size: 12px;
+}
+
+.smaller-table-data
+{
+  width: 20%;
+}
+
+.receipt-item-table
+{
+  font-size: 13px;
+}
+
+.products-table
+{
+  font-size: 13px;
+}

@@ -15,3 +15,20 @@
     font-size: 25px;
     font-weight: bold;
 }
+
+.clock {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .time {
+    font-size: 22px;
+    font-weight: bold;
+  }
+  
+  .date {
+    font-size: 17px;
+    font-weight: normal;
+    margin-top: 10px;
+  }
+  
