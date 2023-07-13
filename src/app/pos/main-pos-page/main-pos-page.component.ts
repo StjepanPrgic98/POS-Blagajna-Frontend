@@ -1,7 +1,9 @@
 import { ChangeDetectorRef, Component, ElementRef, Renderer2 } from '@angular/core';
+import { Customer } from 'src/app/_models/customers/Customer';
 import { Product } from 'src/app/_models/products/Product';
 import { NewReceiptItem } from 'src/app/_models/receipt-items/NewReceiptItem';
 import { ReceiptTotals } from 'src/app/_models/receipts/ReceiptTotals';
+import { CustomerService } from 'src/app/_services/customer.service';
 import { ProductService } from 'src/app/_services/product.service';
 
 @Component({
@@ -25,9 +27,15 @@ export class MainPosPageComponent {
   receiptTotals: ReceiptTotals = {Tax: 0, TotalDiscounts: 0, SubTotal: 0, Total: 0}
   baseTax: number = 2
 
+  customer: Customer | undefined
+  customers: Customer[] = []
+  customerName: string = ""
+  showCustomerData: boolean = false
 
-  constructor(private productService: ProductService, private changeDetector: ChangeDetectorRef,
-    private elementRef: ElementRef, private renderer: Renderer2
+
+  constructor(private productService: ProductService,
+    private elementRef: ElementRef,
+    private customerService: CustomerService
     ) {
 
   }
@@ -44,6 +52,29 @@ export class MainPosPageComponent {
         next: response => {this.products = response},
         error: error => console.log(error)      
       })
+  }
+
+  GetCustomersThatContainsName()
+  {
+    this.customerService.GetCustomersThatContainsName(this.customerName).subscribe(
+      {
+        next: response => {this.customers = response},
+        error: error => console.log(error)
+      })
+  }
+
+  SetCustomer(chosenCustomer: Customer)
+  {
+    this.customer = chosenCustomer
+    this.showCustomerData = true
+  }
+
+  ShowSearchCustomerField()
+  {
+    this.customerName = ""
+    this.customers = []
+    this.customer = undefined
+    this.showCustomerData = false
   }
 
   CreateReceiptItem(product: Product)

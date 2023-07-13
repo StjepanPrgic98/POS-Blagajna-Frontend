@@ -5,7 +5,42 @@
     <div class="col-md-1">
         <div class="well well-sm card card-block text-center">1234</div>
     </div>
-    <div class="col-md-4"></div>
+    <div class="col-md-4">
+      <div class="container" *ngIf="!showCustomerData">
+        <form #searchCustomerByNameForm="ngForm">
+          <div class="form-group">
+            <label class="form-label custom-label">Search customer by name</label>
+            <input type="text" class="form-control" autocomplete="off" name="customerName" [(ngModel)]="customerName" (input)="GetCustomersThatContainsName()">
+          </div>
+        </form>
+      </div>
+      <div class="row" style="margin-top: 10px;" *ngIf="!showCustomerData">
+        <ng-container *ngFor="let customer of customers">
+          <div class="col-md-2"></div>
+          <div class="col-md-8">
+            <div class="well well-sm card card-block text-center customer-names" style="margin-top: 3px;" (click)="SetCustomer(customer)">{{customer.name}}</div>
+          </div>
+          <div class="col-md-2"></div>
+        </ng-container>
+      </div>
+      <div class="container" *ngIf="customer && showCustomerData">
+        <div class="row">
+          <div class="col-md-12 text-end">
+            <button type="button" style="margin-bottom: 3px;" class="btn btn-primary x-button" (click)="ShowSearchCustomerField()"><i class="fa fa-times fa-3x" aria-hidden="true"></i></button>
+          </div>
+          <div class="col-md-3"><label class="form-label custom-label">Customer name:</label></div>
+          <div class="col-md-9"><div class="well well-sm card card-block text-center">{{customer.name}}</div></div>
+        </div>
+        <div class="row">
+          <div class="col-md-3"><label class="form-label custom-label">Address:</label></div>
+          <div class="col-md-9"><div class="well well-sm card card-block text-center">{{customer.address}}</div></div>
+        </div>
+        <div class="row">
+          <div class="col-md-3"><label class="form-label custom-label">Town:</label></div>
+          <div class="col-md-9"><div class="well well-sm card card-block text-center">{{customer.town}}</div></div>
+        </div>
+      </div>
+    </div>
     <div class="col-md-2">
       <form #searchProductByNameForm="ngForm">
         <div class="form-group">
