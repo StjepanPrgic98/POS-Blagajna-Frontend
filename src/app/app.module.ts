@@ -17,6 +17,7 @@ import { EditProductPageComponent } from './products/edit-product-page/edit-prod
 import { MainPosPageComponent } from './pos/main-pos-page/main-pos-page.component';
 import { MainCustomerPageComponent } from './customers/main-customer-page/main-customer-page.component';
 import { CreateCustomerPageComponent } from './customers/create-customer-page/create-customer-page.component';
+import { EditCustomerPageComponent } from './customers/edit-customer-page/edit-customer-page.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { CreateCustomerPageComponent } from './customers/create-customer-page/cr
     EditProductPageComponent,
     MainPosPageComponent,
     MainCustomerPageComponent,
-    CreateCustomerPageComponent
+    CreateCustomerPageComponent,
+    EditCustomerPageComponent,
   ],
   imports: [
     BrowserModule,

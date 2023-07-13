@@ -13,6 +13,8 @@ export class MainCustomerPageComponent {
   constructor(private customerService: CustomerService, private toastr: ToastrService){}
 
   customers: Customer[] | undefined
+  
+  customerName: string = ""
 
   ngOnInit()
   {
@@ -29,4 +31,16 @@ export class MainCustomerPageComponent {
         
       })
   }
+
+  GetCustomersThatContainsName()
+  {
+    if(!this.customerName){this.GetCustomers(); return;}
+    
+    this.customerService.GetCustomersThatContainsName(this.customerName).subscribe(
+      {
+        next: response => {this.customers = response},
+        error: error => console.log(error)
+      })
+  }
+
 }

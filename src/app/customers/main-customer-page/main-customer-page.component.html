@@ -4,12 +4,12 @@
     <div class="col-md-3">
     
     </div>
-    <div class="col-md-2"></div>
+    <div class="col-md-3"></div>
     <div class="col-md-2">
       <form #searchCustomerByNameForm="ngForm">
         <div class="form-group">
           <label class="form-label custom-label">Search customer by name</label>
-          <input type="text" class="form-control" id="usr" name="productName"  >
+          <input type="text" class="form-control" id="usr" name="customerName" [(ngModel)]="customerName" (input)="GetCustomersThatContainsName()">
         </div>
       </form>
     </div>
@@ -26,7 +26,7 @@
           </thead>
           <tbody>
             <ng-container *ngFor="let customer of customers">
-              <tr>
+              <tr routerLink="/customers/edit/{{customer.name}}">
                 <td>{{customer.name}}</td>
                 <td>{{customer.address}}</td>
                 <td>{{customer.town}}</td>
