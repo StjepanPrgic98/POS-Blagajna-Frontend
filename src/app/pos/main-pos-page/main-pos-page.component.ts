@@ -281,7 +281,7 @@ export class MainPosPageComponent {
     
     this.receiptService.CreateReceipt(receipt).subscribe(
       {
-        next: () => {this.toastr.success("Purchase complete", "Success!"), this.ResetPOSData()},
+        next: () => {this.toastr.success("Purchase complete", "Success!", {positionClass: "toast-top-center"}), this.ResetPOSData()},
         error: error => {this.toastr.error("Purchase failed", "Warning!"), console.log(error)}
       })
     
@@ -289,6 +289,8 @@ export class MainPosPageComponent {
 
   ResetPOSData()
   {
+    this.GetProducts()
+    
     this.showCustomerData = false
     this.customer = undefined
     this.customers = []
@@ -299,6 +301,9 @@ export class MainPosPageComponent {
     this.receiptTotals.Tax = 0
     this.receiptTotals.Total = 0
     this.receiptTotals.TotalDiscounts = 0
+
+    this.productName = ""
+    this.productCode = undefined
     
     this.GetNewReceiptNumber()
   }
