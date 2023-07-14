@@ -3,7 +3,7 @@
         <label class="form-label receipt-number">Receipt Number:</label>
     </div>
     <div class="col-md-1">
-        <div class="well well-sm card card-block text-center">1234</div>
+        <div class="well well-sm card card-block text-center">{{receipt.Number}}</div>
     </div>
     <div class="col-md-4">
       <div class="container" *ngIf="!showCustomerData">
@@ -126,7 +126,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <table class="table table-bordered receipt-item-table" style="margin-top: 30px;">
+            <table class="table table-bordered receipt-item-table" style="margin-top: 10px;">
                 <thead>
                   <tr class="text-end">
                     <th class="table-titles">Tax</th>
@@ -144,6 +144,9 @@
                     </tr>           
                 </tbody>
               </table>
+        </div>
+        <div class="col-md-12 text-end">
+          <button type="button" class="btn btn-primary col-1 pay-button" (click)="GenerateReceiptData()">Pay</button>
         </div>
     </div>
 

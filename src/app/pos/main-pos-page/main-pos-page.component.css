@@ -42,7 +42,7 @@
     overflow-y: auto;
   }
   .scrollable-container-receipt-items {
-    height: 350px; /* Adjust the desired height */
+    height: 320px; /* Adjust the desired height */
     overflow-y: auto;
   }
 .smaller-input
@@ -78,3 +78,8 @@
   background-color: rgb(0, 0, 0);
 }
 
+.pay-button
+{
+  background-color: rgb(0, 0, 0);
+  font-size: 20px;
+}

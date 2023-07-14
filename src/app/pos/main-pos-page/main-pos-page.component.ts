@@ -1,10 +1,14 @@
 import { ChangeDetectorRef, Component, ElementRef, Renderer2 } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Customer } from 'src/app/_models/customers/Customer';
 import { Product } from 'src/app/_models/products/Product';
 import { NewReceiptItem } from 'src/app/_models/receipt-items/NewReceiptItem';
+import { NewReceipt } from 'src/app/_models/receipts/NewReceipt';
 import { ReceiptTotals } from 'src/app/_models/receipts/ReceiptTotals';
 import { CustomerService } from 'src/app/_services/customer.service';
 import { ProductService } from 'src/app/_services/product.service';
+import { ReceiptItemService } from 'src/app/_services/receipt-item.service';
+import { ReceiptService } from 'src/app/_services/receipt.service';
 
 @Component({
   selector: 'app-main-pos-page',
@@ -32,10 +36,14 @@ export class MainPosPageComponent {
   customerName: string = ""
   showCustomerData: boolean = false
 
+  receipt: NewReceipt = {Number: 0, Note: "", CustomerName: "", ReceiptItems: []}
 
   constructor(private productService: ProductService,
     private elementRef: ElementRef,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private receiptService: ReceiptService,
+    private toastr: ToastrService,
+    private receiptItemService: ReceiptItemService
     ) {
 
   }
@@ -45,11 +53,20 @@ export class MainPosPageComponent {
     this.GetProducts()
   }
 
+  GetNewReceiptNumber()
+  {
+    this.receiptService.GetNewReceiptNumber().subscribe(
+      {
+        next: response => {this.receipt.Number = response},
+        error: error => console.log(error)
+      })
+  }
+
   GetProducts()
   {
     this.productService.GetProducts().subscribe(
       {
-        next: response => {this.products = response},
+        next: response => {this.products = response, this.GetNewReceiptNumber()},
         error: error => console.log(error)      
       })
   }
@@ -239,6 +256,57 @@ export class MainPosPageComponent {
         error: error => console.log(error)
       })
   }
+
+  GenerateReceiptData()
+  {
+    this.receipt.ReceiptItems = this.receiptItems;
+
+    if(!this.customer)
+    {
+      this.receipt.CustomerName = "-";
+      this.receipt.Note = "Purchase made without bonus card!"
+    }
+    else
+    {
+      this.receipt.CustomerName = this.customer.name;
+      this.receipt.Note = "Purchase made with bonus card!"
+    }
+
+    this.CreateReceipt(this.receipt)
+  }
+
+  CreateReceipt(receipt: NewReceipt)
+  {
+    console.log(receipt)
+    
+    this.receiptService.CreateReceipt(receipt).subscribe(
+      {
+        next: () => {this.toastr.success("Purchase complete", "Success!"), this.ResetPOSData()},
+        error: error => {this.toastr.error("Purchase failed", "Warning!"), console.log(error)}
+      })
+    
+  }
+
+  ResetPOSData()
+  {
+    this.showCustomerData = false
+    this.customer = undefined
+    this.customers = []
+    this.customerName = ""
+
+    this.receiptItems = []
+    this.receiptTotals.SubTotal = 0
+    this.receiptTotals.Tax = 0
+    this.receiptTotals.Total = 0
+    this.receiptTotals.TotalDiscounts = 0
+    
+    this.GetNewReceiptNumber()
+  }
+
+
+
+
+  
 
  
 

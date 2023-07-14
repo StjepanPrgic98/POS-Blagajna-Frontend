@@ -19,6 +19,7 @@ import { MainCustomerPageComponent } from './customers/main-customer-page/main-c
 import { CreateCustomerPageComponent } from './customers/create-customer-page/create-customer-page.component';
 import { EditCustomerPageComponent } from './customers/edit-customer-page/edit-customer-page.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
