@@ -28,9 +28,15 @@
         </button>
     </div>
     <div class="col-ml-12">
-        <button type="button" class="btn btn-default custom-link col-12 text-start" routerLink="/pos" routerLinkActive="active">
+        <button type="button" class="btn btn-default custom-link col-12 text-start" routerLink="/pos" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active">
             <i class="fa fa-window-maximize" aria-hidden="true"></i>
             POS
+        </button>
+    </div>
+    <div class="col-ml-12">
+        <button type="button" class="btn btn-default custom-link col-12 text-start" routerLink="/pos/history" routerLinkActive="active">
+            <i class="fa fa-history" aria-hidden="true"></i>
+            Purchase history
         </button>
     </div>
    

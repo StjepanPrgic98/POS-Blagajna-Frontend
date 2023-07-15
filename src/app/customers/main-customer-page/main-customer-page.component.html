@@ -1,3 +1,4 @@
+
 <div class="row" style="margin-top: 50px;">
     <div class="col-md-2">
     </div>
@@ -26,7 +27,7 @@
           </thead>
           <tbody>
             <ng-container *ngFor="let customer of customers">
-              <tr routerLink="/customers/edit/{{customer.name}}">
+              <tr routerLink="/customers/edit/{{customer.name}}" *ngIf="customer.name != null && customer.name != '-'">
                 <td>{{customer.name}}</td>
                 <td>{{customer.address}}</td>
                 <td>{{customer.town}}</td>

@@ -8,6 +8,7 @@ import { MainPosPageComponent } from './pos/main-pos-page/main-pos-page.componen
 import { MainCustomerPageComponent } from './customers/main-customer-page/main-customer-page.component';
 import { CreateCustomerPageComponent } from './customers/create-customer-page/create-customer-page.component';
 import { EditCustomerPageComponent } from './customers/edit-customer-page/edit-customer-page.component';
+import { HistoryPageComponent } from './pos/history-page/history-page.component';
 
 const routes: Routes = 
 [
@@ -17,6 +18,7 @@ const routes: Routes =
   {path: "products/edit/:name", component: EditProductPageComponent},
 
   {path: "pos", component: MainPosPageComponent},
+  {path: "pos/history", component: HistoryPageComponent},
 
   {path: "customers", component: MainCustomerPageComponent},
   {path: "customers/create", component: CreateCustomerPageComponent},

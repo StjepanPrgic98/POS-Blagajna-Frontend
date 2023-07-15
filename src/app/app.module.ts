@@ -18,6 +18,7 @@ import { MainPosPageComponent } from './pos/main-pos-page/main-pos-page.componen
 import { MainCustomerPageComponent } from './customers/main-customer-page/main-customer-page.component';
 import { CreateCustomerPageComponent } from './customers/create-customer-page/create-customer-page.component';
 import { EditCustomerPageComponent } from './customers/edit-customer-page/edit-customer-page.component';
+import { HistoryPageComponent } from './pos/history-page/history-page.component';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { EditCustomerPageComponent } from './customers/edit-customer-page/edit-c
     MainCustomerPageComponent,
     CreateCustomerPageComponent,
     EditCustomerPageComponent,
+    HistoryPageComponent,
   ],
   imports: [
     BrowserModule,

@@ -2,6 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { NewReceipt } from '../_models/receipts/NewReceipt';
+import { PurchaseHistoryFilters } from '../_models/date-time/PurchaseHistoryFilters';
+import { Receipt } from '../_models/receipts/Receipt';
+import { ReceiptHistory } from '../_models/receipts/ReceiptHistory';
 
 @Injectable({
   providedIn: 'root'
@@ -20,5 +23,10 @@ export class ReceiptService {
   public CreateReceipt(receipt: NewReceipt): Observable<boolean>
   {
     return this.http.post(this.baseUrl + "create", receipt) as Observable<boolean>;
+  }
+
+  public GetReceiptsForChosenDate(purchaseHistoryFilters: PurchaseHistoryFilters, filterOptions: string): Observable<ReceiptHistory>
+  {
+    return this.http.post(this.baseUrl + "purchaseHistory/" + filterOptions, purchaseHistoryFilters) as Observable<ReceiptHistory>;
   }
 }
