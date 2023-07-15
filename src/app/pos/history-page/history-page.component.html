@@ -14,16 +14,17 @@
         </div>  
     </div>
     <div class="row" *ngIf="receiptHistory">
-        <div class="col-md-8">
-            <div class="container" style="margin-top: 30px;">
+        <div class="col-md-1"></div>
+        <div class="col-md-11">
+            <div class="container" style="margin-top: 50px;">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <hr>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-6 text-center">
                                 <h1 class="history-totals">Total Net Sales: {{receiptHistory.totalNetSales}} $</h1>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 text-center">
                                 <h1 class="history-totals">Total Transactions: {{receiptHistory.totalTransactions}}</h1>
                             </div>
                         </div>
@@ -33,7 +34,7 @@
                             <div class="col-md-4 text-start">     
                                 <h2 class="history-sub-totals">Cash sales:</h2>                         
                             </div>
-                            <div class="col-md-4 text-start">     
+                            <div class="col-md-4 text-end">     
                                 <h2 class="history-sub-totals ">{{receiptHistory.cashSales}} $</h2>                         
                             </div>
                             <div class="col-md-3"></div>              
@@ -43,7 +44,7 @@
                             <div class="col-md-4 text-start">     
                                 <h2 class="history-sub-totals">Card sales:</h2>                         
                             </div>
-                            <div class="col-md-4 text-start">     
+                            <div class="col-md-4 text-end">     
                                 <h2 class="history-sub-totals ">{{receiptHistory.cardSales}} $</h2>                         
                             </div>
                             <div class="col-md-3"></div>              
@@ -53,7 +54,7 @@
                             <div class="col-md-4 text-start">     
                                 <h2 class="history-sub-totals">Total discounts:</h2>                         
                             </div>
-                            <div class="col-md-4 text-start">     
+                            <div class="col-md-4 text-end">     
                                 <h2 class="history-sub-totals ">{{receiptHistory.totalDiscounts}} $</h2>                         
                             </div>
                             <div class="col-md-3"></div>              
@@ -63,11 +64,51 @@
                             <div class="col-md-4 text-start">     
                                 <h2 class="history-sub-totals">Total sales:</h2>                         
                             </div>
-                            <div class="col-md-4 text-start">     
+                            <div class="col-md-4 text-end">     
                                 <h2 class="history-sub-totals ">{{receiptHistory.totalSales}} $</h2>                         
                             </div>
                             <div class="col-md-3"></div>              
                         </div>
+                    </div>
+                    <div class="col-md-6">
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h1 class="history-totals text-center">Receipts</h1>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="scrollable-container">
+                            <div class="col-md-12">
+                                <ng-container *ngFor="let receipt of receipts">
+                                    <div class="well well-sm card card-block text-center receipt-cards" style="margin-bottom: 3px;">
+                                        <div class="row" style="margin-top: 5px;">
+                                            <div class="col-md-2">{{CalculateReceiptDate(receipt)}}</div>
+                                            <div class="col-md-4" *ngIf="receipt.customer == null"></div>
+                                            <ng-container *ngIf="receipt.customer != null">
+                                                <div class="col-md-4 text-start" *ngIf="receipt.customer.name != null && receipt.customer.name != '-'">{{receipt.customer.name}}</div>           
+                                                <div class="col-md-4 text-start" *ngIf="receipt.customer.name != null && receipt.customer.name == '-'">Walk in</div>
+                                            </ng-container>    
+                                            <div class="col-md-3"></div>      
+                                            <div class="col-md-3">{{CalculateReceiptsTotalPrice(receipt.receiptItems)}} $</div>
+                                        </div>
+                                        <div class="row" style="margin-top: 12px; margin-bottom: 5px;">
+                                            <div class="col-md-2"></div>
+                                            <div class="col-md-3 text-start">{{receipt.number}}</div>
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-6 ">{{receipt.note}}</div>
+                                            
+                                            
+                                           
+                                            
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </div>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
             </div>

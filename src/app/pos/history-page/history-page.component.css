@@ -22,10 +22,20 @@
 
 .history-totals
 {
-    font-size: 18px;
+    font-size: 17px;
 }
 
 .history-sub-totals
 {
     font-size: 15px;
 }
+
+.receipt-cards
+{
+    font-size: 15px;
+}
+
+.scrollable-container {
+    max-height: 450px; /* Adjust the desired height */
+    overflow-y: auto;
+  }
