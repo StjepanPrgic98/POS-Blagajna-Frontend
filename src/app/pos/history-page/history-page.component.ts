@@ -7,6 +7,7 @@ import { Receipt } from 'src/app/_models/receipts/Receipt';
 import { ReceiptHistory } from 'src/app/_models/receipts/ReceiptHistory';
 import { ReceiptService } from 'src/app/_services/receipt.service';
 import { DatePipe } from '@angular/common';
+import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 
 @Component({
   selector: 'app-history-page',
@@ -25,19 +26,27 @@ export class HistoryPageComponent {
   currentDateTime: Date | undefined
   purchaseHistoryFilters: PurchaseHistoryFilters | undefined
 
-  displayCurrentDay: boolean = false
-  displayMonth: boolean = false
-  displayYear: boolean = false
+  displayHistoryForDay: boolean = true
+  displayHistoryForMonth: boolean = false
+  displayHistoryForYear: boolean = false
+  datepickerModel: Date | undefined;
+  dateChanged: boolean = false;
+
+  date: any;
+  bsInlineValue = new Date();
+  bsConfig: Partial<BsDatepickerConfig> | undefined;
+  
+
   
   ngOnInit()
   {
     this.GetHistoryFilters()
   }
 
-  GetHistory()
+  GetHistory(purchaseHistoryFilters: PurchaseHistoryFilters, option: string)
   {
     if(!this.purchaseHistoryFilters){return}
-    this.receiptService.GetReceiptsForChosenDate(this.purchaseHistoryFilters, "day").subscribe(
+    this.receiptService.GetReceiptsForChosenDate(purchaseHistoryFilters, option).subscribe(
       {
         next: response => {this.receiptHistory = response, this.receipts = response.receipts},
         error: error => console.log(error)
@@ -55,7 +64,7 @@ export class HistoryPageComponent {
       Year: this.currentDateTime.getFullYear()
     }
     
-    this.GetHistory()
+    this.GetHistory(this.purchaseHistoryFilters,"day")
   }
 
   CalculateReceiptsTotalPrice(receiptItems: ReceiptItem[])
@@ -79,6 +88,39 @@ export class HistoryPageComponent {
     const timeString = datePipe.transform(date, 'HH:mm');
 
     return timeString;
+  }
+
+  FilterHistory(option: string)
+  {
+    this.ResetHistoryFilterOption()
+
+    if(option == "day"){this.displayHistoryForDay = true}
+    if(option == "month"){this.displayHistoryForMonth = true}
+    if(option == "year"){this.displayHistoryForYear = true}
+
+    if(!this.purchaseHistoryFilters){return}
+    this.GetHistory(this.purchaseHistoryFilters, option)
+  }
+
+  ResetHistoryFilterOption()
+  {
+    this.displayHistoryForDay = false
+    this.displayHistoryForMonth = false
+    this.displayHistoryForYear = false
+  }
+
+  onDateChange(date: Date): void {
+    if (this.dateChanged == false) {
+      this.dateChanged = true;
+    } else {
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1; 
+      const day = date.getDate();
+
+      const customDateString = `${day.toString().padStart(2, '0')}-${month.toString().padStart(2, '0')}-${year}`;
+      console.log(customDateString)
+
+    }
   }
 
   

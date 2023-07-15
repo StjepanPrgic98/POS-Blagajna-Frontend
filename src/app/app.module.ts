@@ -19,6 +19,8 @@ import { MainCustomerPageComponent } from './customers/main-customer-page/main-c
 import { CreateCustomerPageComponent } from './customers/create-customer-page/create-customer-page.component';
 import { EditCustomerPageComponent } from './customers/edit-customer-page/edit-customer-page.component';
 import { HistoryPageComponent } from './pos/history-page/history-page.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 
 @NgModule({
@@ -42,6 +44,8 @@ import { HistoryPageComponent } from './pos/history-page/history-page.component'
     BrowserAnimationsModule,
     FormsModule,
     CollapseModule.forRoot(),
+    BsDatepickerModule.forRoot(),
+    BsDropdownModule.forRoot(),
     ToastrModule.forRoot(
       {
         positionClass: "toast-bottom-right",
