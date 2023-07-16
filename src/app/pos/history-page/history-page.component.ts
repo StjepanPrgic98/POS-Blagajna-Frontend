@@ -79,7 +79,7 @@ export class HistoryPageComponent {
     return Number(totalPrice.toFixed(2));
   }
 
-  CalculateReceiptDate(receipt: Receipt)
+  CalculateReceiptTime(receipt: Receipt)
   {
     const datePipe = new DatePipe('en-US');
 
@@ -90,6 +90,17 @@ export class HistoryPageComponent {
     return timeString;
   }
 
+  CalculateReceiptDate(receipt: Receipt)
+  {
+    const datePipe = new DatePipe('en-US');
+
+    const date = new Date(receipt.date);
+
+    const dateString = datePipe.transform(date, 'dd/MM');
+
+    return dateString;
+  }
+
   FilterHistory(option: string)
   {
     this.ResetHistoryFilterOption()
@@ -98,8 +109,6 @@ export class HistoryPageComponent {
     if(option == "month"){this.displayHistoryForMonth = true}
     if(option == "year"){this.displayHistoryForYear = true}
 
-    if(!this.purchaseHistoryFilters){return}
-    this.GetHistory(this.purchaseHistoryFilters, option)
   }
 
   ResetHistoryFilterOption()
@@ -109,18 +118,27 @@ export class HistoryPageComponent {
     this.displayHistoryForYear = false
   }
 
-  onDateChange(date: Date): void {
-    if (this.dateChanged == false) {
+  onDateChange(date: Date): void 
+  {
+    if (this.dateChanged == false) 
+    {
       this.dateChanged = true;
-    } else {
-      const year = date.getFullYear();
-      const month = date.getMonth() + 1; 
-      const day = date.getDate();
-
-      const customDateString = `${day.toString().padStart(2, '0')}-${month.toString().padStart(2, '0')}-${year}`;
-      console.log(customDateString)
-
+    } 
+    else 
+    {
+      
+      this.purchaseHistoryFilters = 
+      {
+        Day: date.getDate(),
+        Month: date.getMonth() + 1,
+        Year: date.getFullYear()
+      }
+      
+      if(this.displayHistoryForDay){this.GetHistory(this.purchaseHistoryFilters, "day")}
+      if(this.displayHistoryForMonth){this.GetHistory(this.purchaseHistoryFilters, "month")}
+      if(this.displayHistoryForYear){this.GetHistory(this.purchaseHistoryFilters, "year")}
     }
+
   }
 
   
