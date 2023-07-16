@@ -9,6 +9,7 @@ import { MainCustomerPageComponent } from './customers/main-customer-page/main-c
 import { CreateCustomerPageComponent } from './customers/create-customer-page/create-customer-page.component';
 import { EditCustomerPageComponent } from './customers/edit-customer-page/edit-customer-page.component';
 import { HistoryPageComponent } from './pos/history-page/history-page.component';
+import { ReceiptDetailPageComponent } from './pos/receipt-detail-page/receipt-detail-page.component';
 
 const routes: Routes = 
 [
@@ -19,6 +20,7 @@ const routes: Routes =
 
   {path: "pos", component: MainPosPageComponent},
   {path: "pos/history", component: HistoryPageComponent},
+  {path: "pos/detail", component: ReceiptDetailPageComponent},
 
   {path: "customers", component: MainCustomerPageComponent},
   {path: "customers/create", component: CreateCustomerPageComponent},

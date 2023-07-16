@@ -215,7 +215,7 @@ export class MainPosPageComponent {
     
     const tax = this.receiptTotals.SubTotal * this.baseTax / 100;
     this.receiptTotals.Tax = parseFloat(tax.toFixed(2));
-    this.receiptTotals.Total = parseFloat((this.receiptTotals.SubTotal - this.receiptTotals.TotalDiscounts + this.receiptTotals.Tax).toFixed(2))
+    this.receiptTotals.Total = parseFloat((this.receiptTotals.SubTotal + this.receiptTotals.Tax).toFixed(2))
 
   }
 

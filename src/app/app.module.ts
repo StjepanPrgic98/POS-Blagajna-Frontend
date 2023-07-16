@@ -21,6 +21,7 @@ import { EditCustomerPageComponent } from './customers/edit-customer-page/edit-c
 import { HistoryPageComponent } from './pos/history-page/history-page.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ReceiptDetailPageComponent } from './pos/receipt-detail-page/receipt-detail-page.component';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     CreateCustomerPageComponent,
     EditCustomerPageComponent,
     HistoryPageComponent,
+    ReceiptDetailPageComponent,
   ],
   imports: [
     BrowserModule,

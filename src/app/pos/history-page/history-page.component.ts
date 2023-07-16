@@ -141,5 +141,11 @@ export class HistoryPageComponent {
 
   }
 
+  GoToReceiptDetails(receipt: Receipt)
+  {
+    this.receiptService.SaveReceiptInCache(receipt)
+    this.router.navigateByUrl("pos/detail")
+  }
+
   
 }

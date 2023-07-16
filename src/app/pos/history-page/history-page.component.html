@@ -153,7 +153,7 @@
                             <div class="scrollable-container">
                             <div class="col-md-12">
                                 <ng-container *ngFor="let receipt of receipts">
-                                    <div class="well well-sm card card-block text-center receipt-cards" style="margin-bottom: 3px;">
+                                    <div class="well well-sm card card-block text-center receipt-cards" style="margin-bottom: 3px;" (click)="GoToReceiptDetails(receipt)">
                                         <div class="row" style="margin-top: 5px;">
                                             <div class="col-md-2">{{CalculateReceiptTime(receipt)}}</div>
                                             <div class="col-md-4" *ngIf="receipt.customer == null"></div>

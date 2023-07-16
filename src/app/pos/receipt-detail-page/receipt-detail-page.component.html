@@ -1,0 +1,78 @@
+<div class="container" *ngIf="receipt" style="margin-top: 30px">
+    <div class="row">
+        <div class="col-md-2">
+            <button type="button" class="btn btn-primary col-3 add-product-button" routerLink="/pos/history"><i class="fa fa-arrow-left fa-lg" aria-hidden="true"></i></button>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-3"><label class="form-label custom-label">Customer name:</label></div>
+                <div class="col-md-9"><div class="well well-sm card card-block text-center">{{receipt.customer.name}}</div></div>
+              </div>
+              <div class="row">
+                <div class="col-md-3"><label class="form-label custom-label">Address:</label></div>
+                <div class="col-md-9"><div class="well well-sm card card-block text-center">{{receipt.customer.address}}</div></div>
+              </div>
+              <div class="row">
+                <div class="col-md-3"><label class="form-label custom-label">Town:</label></div>
+                <div class="col-md-9"><div class="well well-sm card card-block text-center">{{receipt.customer.town}}</div></div>
+            </div>
+        </div>
+        <div class="col-md-4 text-end">
+            <button type="button" class="btn btn-basic col-6 delete-product-button" (click)="DeleteReceipt(receipt.id)">Delete</button>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 50px;">
+        <div class="scrollable-container-receipt-items">
+            <table class="table table-bordered receipt-item-table" style="margin-top: 30px;">
+                <thead>
+                  <tr>
+                    <th class="table-titles">Product Name</th>
+                    <th class="table-titles">Quantity</th>
+                    <th class="table-titles">Price</th>
+                    <th class="table-titles">Discount%</th>
+                    <th class="table-titles">Discount Ammount</th>
+                    <th class="table-titles">Total Price</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <ng-container *ngFor="let receiptItem of receiptItems">
+                    <tr>
+                        <td class="table-data">{{receiptItem.product.name}}</td>
+                        <td class="table-data">{{receiptItem.quantity}}</td>
+                        <td class="table-data">{{receiptItem.price}}</td>
+                        <td class="table-data">{{receiptItem.discountPercentage}}</td>
+                        <td class="table-data">{{receiptItem.discountAmmount}}</td>
+                        <td class="table-data">{{receiptItem.totalPrice}}</td>
+                      </tr>
+                </ng-container>             
+                </tbody>
+              </table>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 30px;">
+            <div class="col-md-12">
+                <table class="table table-bordered receipt-item-table" style="margin-top: 10px;">
+                    <thead>
+                      <tr class="text-end">
+                        <th class="table-titles">Tax</th>
+                        <th class="table-titles">Total discounts</th>
+                        <th class="table-titles">Sub total</th>
+                        <th class="table-titles">TOTAL</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="text-end">
+                            <td class="table-data">{{receiptTotals.Tax}}</td>
+                            <td class="table-data">{{receiptTotals.TotalDiscounts}}</td>
+                            <td class="table-data">{{receiptTotals.SubTotal}}</td>
+                            <td class="total-price">{{receiptTotals.Total}}</td>
+                        </tr>           
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+        
+</div>
+
+
