@@ -1,16 +1,181 @@
-<div class="row" style="margin-top: 30px;">
-    <div class="col-md-2">
-        <label class="form-label receipt-number">Receipt Number:</label>
+<div class="row">
+  <div class="col-md-5 order-section" style="height: 100vh;">
+    <div class="row">
+      <div class="col-md-4 text-center">
+        <label class="form-label order-number" style="margin-top: 40px;">Order: {{receipt.Number}}</label>
+      </div>
+      <div class="col-md-8" style="height: 110px;">
+        <div *ngIf="customer && showCustomerData" style="font-size: 10px;">
+          <div class="row" style="margin-top: 10px;">
+            <div class="col-md-12 text-end">
+              <button type="button" style="margin-bottom: 3px;" class="btn btn-primary x-button" (click)="ShowSearchCustomerField()"><i class="fa fa-times fa-3x" aria-hidden="true"></i></button>
+            </div>
+            <div class="col-md-3"><label class="form-label customer-label">Customer name:</label></div>
+            <div class="col-md-9"><div class="well well-sm card card-block text-center">{{customer.name}}</div></div>
+          </div>
+          <div class="row">
+            <div class="col-md-3"><label class="form-label customer-label">Address:</label></div>
+            <div class="col-md-9"><div class="well well-sm card card-block text-center">{{customer.address}}</div></div>
+          </div>
+          <div class="row">
+            <div class="col-md-3"><label class="form-label customer-label">Town:</label></div>
+            <div class="col-md-9"><div class="well well-sm card card-block text-center">{{customer.town}}</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="scrollable-container-receipt-items">
+          <table class="table table-hover receipt-item-table">
+              <thead>
+                <tr>
+                  <th class="order-table-background">Product Name</th>
+                  <th class="order-table-background">Quantity</th>
+                  <th class="order-table-background">Price</th>
+                  <th class="order-table-background">Discount%</th>
+                  <th class="order-table-background">Discount Ammount</th>
+                  <th class="order-table-background">Total Price</th>
+                  <th class="order-table-background text-center">-</th>
+                </tr>
+              </thead>
+              <tbody>
+              <ng-container *ngFor="let receiptItem of receiptItems">
+                  <tr>
+                      <td class="table-data order-table-background">{{receiptItem.ProductName}}</td>
+                      <td class="smaller-table-data order-table-background">
+                          <form #addProductQuantityForm="ngForm">
+                              <div class="form-group">
+                                <input type="number" min="1"  name="Quantity" [(ngModel)]="receiptItem.Quantity" class="form-control smaller-input" (input)="SubmitProductQuantity(receiptItem)">
+                              </div>   
+                            </form>
+                      </td>
+                      <td class="table-data order-table-background">{{receiptItem.Price}}</td>
+                      <td class="smaller-table-data order-table-background">
+                          <form #addProductDiscountForm="ngForm">
+                              <div class="form-group">
+                                <input type="number"  name="DiscountPercentage" [(ngModel)]="receiptItem.DiscountPercentage" class="form-control smaller-input" (input)="SubmitProductDiscount(receiptItem)" />
+                              </div>   
+                            </form>
+                      </td>
+                      <td class="table-data order-table-background">{{receiptItem.DiscountAmmount}}</td>
+                      <td class="table-data order-table-background">{{receiptItem.TotalPrice}}</td>
+                      <td class="delete-table-row order-table-background"><button type="button" class="btn delete-button" (click)="DeleteReceiptItem(receiptItem)"><i class="fa fa-times" aria-hidden="true"></i></button></td>
+                    </tr>
+              </ng-container>             
+              </tbody>
+            </table>
+          </div>
+      </div>
     </div>
-    <div class="col-md-1">
-        <div class="well well-sm card card-block text-center">{{receipt.Number}}</div>
+    <div class="row" style="margin-top: 25px;">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-7">
+            <label class="form-label order-totals">Total Discounts: </label>
+          </div>
+          <div class="col-md-5">
+            <label class="form-label order-totals">{{receiptTotals.TotalDiscounts}} $</label>
+          </div>
+        </div>       
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-5">
+            <label class="form-label order-totals">Tax: </label>
+          </div>
+          <div class="col-md-7">
+            <label class="form-label order-totals">{{receiptTotals.Tax}} $</label>
+          </div>
+        </div>       
+      </div>
     </div>
-    <div class="col-md-4">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-7">
+            <label class="form-label order-totals">Sub Total: </label>
+          </div>
+          <div class="col-md-5">
+            <label class="form-label order-totals">{{receiptTotals.SubTotal}} $</label>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-5">
+            <label class="form-label order-totals" style="font-size:22px ;">Total: </label>
+          </div>
+          <div class="col-md-7">
+            <label class="form-label total-price">{{receiptTotals.Total}} $</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 text-end" style="margin-top: 10px;">
+        <button type="button" class="btn btn-primary col-3 pay-button" (click)="GenerateReceiptData()">Pay</button>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-7 products-section" style="height: 100vh;">
+    <div class="row">
+      <div class="col-md-5"></div>
+      <div class="col-md-3">
+        <form #searchProductByNameForm="ngForm">
+          <div class="form-group">
+            <label class="form-label custom-label">Search product by name</label>
+            <input type="text" class="form-control" id="usr" name="productName" [(ngModel)]="productName" (input)="SearchProductsThatContainName()">
+          </div>
+        </form>
+      </div>
+      <div class="col-md-3">
+        <form #searchProductByCodeForm="ngForm">
+          <div class="form-group">
+            <label class="form-label custom-label">Search product by code</label>
+            <input type="number" id="typeNumber" name="productCode" [(ngModel)]="productCode" class="form-control" (input)="SearchProductsThatContainCode()" />
+          </div>   
+        </form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="scrollable-container products-table" style="margin-top: 20px;">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th class="table-titles product-table-background">Product Code</th>
+                <th class="table-titles product-table-background">Product Name</th>
+                <th class="table-titles product-table-background">Unit of Measure</th>
+                <th class="table-titles product-table-background">Price</th>
+                <th class="table-titles product-table-background">Storage Quantity</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let product of products">
+                <tr (click)="CreateReceiptItem(product)">
+                  <td class="table-data order-table-background">{{product.code}}</td>
+                  <td class="table-data order-table-background">{{product.name}}</td>
+                  <td class="table-data order-table-background">{{product.unitOfMeasure}}</td>
+                  <td class="table-data order-table-background">{{product.price}} $</td>
+                  <td class="table-data order-table-background">{{product.storageQuantity}}</td>
+                </tr>
+              </ng-container>
+              
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="margin-top: 20px;">
       <div class="container" *ngIf="!showCustomerData">
         <form #searchCustomerByNameForm="ngForm">
           <div class="form-group">
-            <label class="form-label custom-label">Search customer by name</label>
-            <input type="text" class="form-control" autocomplete="off" name="customerName" [(ngModel)]="customerName" (input)="GetCustomersThatContainsName()">
+            <div class="row">
+              <div class="col-md-4"></div>
+              <div class="col-md-4">
+                <label class="form-label custom-label">Search customer by name</label>
+                <input type="text" class="form-control" autocomplete="off" name="customerName" [(ngModel)]="customerName" (input)="GetCustomersThatContainsName()">
+              </div>
+            </div>
           </div>
         </form>
       </div>
@@ -23,136 +188,11 @@
           <div class="col-md-2"></div>
         </ng-container>
       </div>
-      <div class="container" *ngIf="customer && showCustomerData">
-        <div class="row">
-          <div class="col-md-12 text-end">
-            <button type="button" style="margin-bottom: 3px;" class="btn btn-primary x-button" (click)="ShowSearchCustomerField()"><i class="fa fa-times fa-3x" aria-hidden="true"></i></button>
-          </div>
-          <div class="col-md-3"><label class="form-label custom-label">Customer name:</label></div>
-          <div class="col-md-9"><div class="well well-sm card card-block text-center">{{customer.name}}</div></div>
-        </div>
-        <div class="row">
-          <div class="col-md-3"><label class="form-label custom-label">Address:</label></div>
-          <div class="col-md-9"><div class="well well-sm card card-block text-center">{{customer.address}}</div></div>
-        </div>
-        <div class="row">
-          <div class="col-md-3"><label class="form-label custom-label">Town:</label></div>
-          <div class="col-md-9"><div class="well well-sm card card-block text-center">{{customer.town}}</div></div>
-        </div>
-      </div>
     </div>
-    <div class="col-md-2">
-      <form #searchProductByNameForm="ngForm">
-        <div class="form-group">
-          <label class="form-label custom-label">Search product by name</label>
-          <input type="text" class="form-control" id="usr" name="productName" [(ngModel)]="productName" (input)="SearchProductsThatContainName()">
-        </div>
-      </form>
-    </div>
-    <div class="col-md-2">
-      <form #searchProductByCodeForm="ngForm">
-        <div class="form-group">
-          <label class="form-label custom-label" for="typeNumber">Search product by code</label>
-          <input type="number" id="typeNumber" name="productCode" [(ngModel)]="productCode" class="form-control" (input)="SearchProductsThatContainCode()" />
-        </div>   
-      </form>
-    </div>
-    <div class="scrollable-container products-table" style="margin-top: 20px;">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th class="table-titles">Product Code</th>
-              <th class="table-titles">Product Name</th>
-              <th class="table-titles">Unit of Measure</th>
-              <th class="table-titles">Price</th>
-              <th class="table-titles">Storage Quantity</th>
-            </tr>
-          </thead>
-          <tbody>
-            <ng-container *ngFor="let product of products">
-              <tr (click)="CreateReceiptItem(product)">
-                <td class="table-data">{{product.code}}</td>
-                <td class="table-data">{{product.name}}</td>
-                <td class="table-data">{{product.unitOfMeasure}}</td>
-                <td class="table-data">{{product.price}} $</td>
-                <td class="table-data">{{product.storageQuantity}}</td>
-              </tr>
-            </ng-container>
-            
-          </tbody>
-        </table>
-      </div>
-    <div class="col-md-12">
-    <div class="scrollable-container-receipt-items">
-        <table class="table table-bordered receipt-item-table" style="margin-top: 30px;">
-            <thead>
-              <tr>
-                <th class="table-titles">Product Name</th>
-                <th class="table-titles">Quantity</th>
-                <th class="table-titles">Price</th>
-                <th class="table-titles">Discount%</th>
-                <th class="table-titles">Discount Ammount</th>
-                <th class="table-titles">Total Price</th>
-              </tr>
-            </thead>
-            <tbody>
-            <ng-container *ngFor="let receiptItem of receiptItems">
-                <tr>
-                    <td class="table-data">{{receiptItem.ProductName}}</td>
-                    <td class="smaller-table-data">
-                        <form #addProductQuantityForm="ngForm">
-                            <div class="form-group">
-                              <input type="number" min="1"  name="Quantity" [(ngModel)]="receiptItem.Quantity" class="form-control smaller-input" (input)="SubmitProductQuantity(receiptItem)">
-                            </div>   
-                          </form>
-                    </td>
-                    <td class="table-data">{{receiptItem.Price}}</td>
-                    <td class="smaller-table-data">
-                        <form #addProductDiscountForm="ngForm">
-                            <div class="form-group">
-                              <input type="number"  name="DiscountPercentage" [(ngModel)]="receiptItem.DiscountPercentage" class="form-control smaller-input" (input)="SubmitProductDiscount(receiptItem)" />
-                            </div>   
-                          </form>
-                    </td>
-                    <td class="table-data">{{receiptItem.DiscountAmmount}}</td>
-                    <td class="table-data">{{receiptItem.TotalPrice}}</td>
-                    <td class="delete-table-row"><button type="button" class="btn delete-button" (click)="DeleteReceiptItem(receiptItem)">Delete</button></td>
-                  </tr>
-            </ng-container>             
-            </tbody>
-          </table>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12">
-            <table class="table table-bordered receipt-item-table" style="margin-top: 10px;">
-                <thead>
-                  <tr class="text-end">
-                    <th class="table-titles">Tax</th>
-                    <th class="table-titles">Total discounts</th>
-                    <th class="table-titles">Sub total</th>
-                    <th class="table-titles">TOTAL</th>
-                  </tr>
-                </thead>
-                <tbody>
-                    <tr class="text-end">
-                        <td class="table-data">{{receiptTotals.Tax}}</td>
-                        <td class="table-data">{{receiptTotals.TotalDiscounts}}</td>
-                        <td class="table-data">{{receiptTotals.SubTotal}}</td>
-                        <td class="total-price">{{receiptTotals.Total}}</td>
-                    </tr>           
-                </tbody>
-              </table>
-        </div>
-        <div class="col-md-12 text-end">
-          <button type="button" class="btn btn-primary col-1 pay-button" (click)="GenerateReceiptData()">Pay</button>
-        </div>
-    </div>
-
-    
-        
-        
-  
+  </div>
 </div>
+
+
+
+
 

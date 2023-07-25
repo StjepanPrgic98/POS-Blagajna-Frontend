@@ -202,22 +202,29 @@ export class MainPosPageComponent {
     console.log(this.receiptItems)
   }
 
-  CalculateReceiptTotals()
-  {
-    this.ResetReceiptTotals()
-
-    for (let i = 0; i < this.receiptItems.length; i++) 
-    {
-      this.receiptTotals.TotalDiscounts += +(this.receiptItems[i].DiscountAmmount.toFixed(2));
-      this.receiptTotals.SubTotal += +(this.receiptItems[i].TotalPrice.toFixed(2));
+  CalculateReceiptTotals() {
+    this.ResetReceiptTotals();
+  
+    let subTotalInCents = 0;
+    let totalDiscountsInCents = 0;
+  
+    for (let i = 0; i < this.receiptItems.length; i++) {
+      const priceInCents = Math.round(this.receiptItems[i].TotalPrice * 100); // Convert to cents and round to integers
+      const discountInCents = Math.round(this.receiptItems[i].DiscountAmmount * 100);
+  
+      subTotalInCents += priceInCents;
+      totalDiscountsInCents += discountInCents;
     }
-    
-    
-    const tax = this.receiptTotals.SubTotal * this.baseTax / 100;
-    this.receiptTotals.Tax = parseFloat(tax.toFixed(2));
-    this.receiptTotals.Total = parseFloat((this.receiptTotals.SubTotal + this.receiptTotals.Tax).toFixed(2))
-
+  
+    this.receiptTotals.TotalDiscounts = totalDiscountsInCents / 100; // Convert back to dollars with two decimal places
+    this.receiptTotals.SubTotal = subTotalInCents / 100;
+  
+    const taxInCents = Math.round(this.receiptTotals.SubTotal * this.baseTax * 100);
+    this.receiptTotals.Tax = taxInCents / 100;
+    this.receiptTotals.Total = +(this.receiptTotals.SubTotal + this.receiptTotals.Tax).toFixed(2);
   }
+  
+  
 
   ResetReceiptTotals()
   {

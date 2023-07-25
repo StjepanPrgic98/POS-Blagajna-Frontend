@@ -1,7 +1,48 @@
+.products-section
+{
+  background-color: rgba(0, 55, 126, 0.795);
+}
+
+.order-section
+{
+  background-color: rgba(128, 128, 128, 0.551);
+}
+
+.order-number
+{
+  margin-top: 5px;
+  font-weight: bold;
+  font-size: 20px;
+  color: rgba(0, 110, 255, 0.795);
+  text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;
+}
+
+.order-table-background
+{
+  background-color: rgba(128, 128, 128, 0.551);
+}
+.product-table-background
+{
+  background-color: rgba(0, 0, 0, 0.544);
+  color: white;
+}
+
+.order-totals
+{
+  font-size: 15px;
+  font-weight: bold;
+}
+
+
 .custom-label
 {
     font-size: 10px;
     font-weight: bold;
+}
+
+.customer-label
+{
+  font-size: 8px;
 }
 .receipt-number
 {
@@ -19,6 +60,7 @@
 {
   font-size: 22px;
   color: green;
+  font-weight: bold;
 }
 
 .delete-button
@@ -33,27 +75,27 @@
 
 .delete-table-row
 {
-  width: 5%;
+  width: 1%;
 }
 
   
   .scrollable-container {
-    max-height: 100px; /* Adjust the desired height */
+    max-height: 400px; /* Adjust the desired height */
     overflow-y: auto;
   }
   .scrollable-container-receipt-items {
-    height: 320px; /* Adjust the desired height */
+    height: 450px; /* Adjust the desired height */
     overflow-y: auto;
   }
 .smaller-input
 {
-  width: 50%;
+  width: 100%;
   font-size: 10px;
 }
 
 .smaller-table-data
 {
-  width: 20%;
+  width: 15%;
 }
 
 .receipt-item-table
