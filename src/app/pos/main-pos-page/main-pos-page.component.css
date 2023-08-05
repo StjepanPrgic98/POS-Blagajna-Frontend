@@ -1,11 +1,11 @@
 .products-section
 {
-  background-color: rgba(0, 55, 126, 0.795);
+  background-color: rgba(0, 90, 208, 0.844);
 }
 
 .order-section
 {
-  background-color: rgba(128, 128, 128, 0.551);
+  background-color: rgba(230, 230, 230, 0.393);
 }
 
 .order-number
@@ -19,18 +19,21 @@
 
 .order-table-background
 {
-  background-color: rgba(128, 128, 128, 0.551);
+  background-color: rgba(255, 255, 255, 0.336);
+  font-weight: bold;
 }
 .product-table-background
 {
-  background-color: rgba(0, 0, 0, 0.544);
-  color: white;
+  background-color: rgba(0, 90, 208, 0);
+  color: rgb(255, 255, 255);
+  font-size: 15px;
 }
 
 .order-totals
 {
   font-size: 15px;
   font-weight: bold;
+  color: rgba(0, 90, 208, 0.844);
 }
 
 

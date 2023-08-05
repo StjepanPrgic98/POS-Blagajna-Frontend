@@ -1,78 +1,99 @@
-<div class="container" *ngIf="receipt" style="margin-top: 30px">
+<div class="row" *ngIf="receipt">
+  <div class="col-md-3" style="background-color:rgba(0, 90, 208, 0.844); ;"></div>
+  <div class="col-md-5 order-section" style="height: 100vh;">
     <div class="row">
-        <div class="col-md-2">
-            <button type="button" class="btn btn-primary col-3 add-product-button" routerLink="/pos/history"><i class="fa fa-arrow-left fa-lg" aria-hidden="true"></i></button>
+      <div class="col-md-4 text-start">
+        <label class="form-label order-number" style="margin-top: 10px;">Order: {{receipt.number}}</label>
+      </div>
+      <div class="col-md-8" style="height: 110px;">
+        <div style="font-size: 10px;">
+          <div class="row" style="margin-top: 10px;">
+            <div class="col-md-3"><label class="form-label customer-label">Customer name:</label></div>
+            <div class="col-md-9"><div class="well well-sm card card-block text-center">{{receipt.customer.name}}</div></div>
+          </div>
+          <div class="row">
+            <div class="col-md-3"><label class="form-label customer-label">Address:</label></div>
+            <div class="col-md-9"><div class="well well-sm card card-block text-center">{{receipt.customer.address}}</div></div>
+          </div>
+          <div class="row">
+            <div class="col-md-3"><label class="form-label customer-label">Town:</label></div>
+            <div class="col-md-9"><div class="well well-sm card card-block text-center">{{receipt.customer.town}}</div></div>
+          </div>
         </div>
-        <div class="col-md-6">
-            <div class="row">
-                <div class="col-md-3"><label class="form-label custom-label">Customer name:</label></div>
-                <div class="col-md-9"><div class="well well-sm card card-block text-center">{{receipt.customer.name}}</div></div>
-              </div>
-              <div class="row">
-                <div class="col-md-3"><label class="form-label custom-label">Address:</label></div>
-                <div class="col-md-9"><div class="well well-sm card card-block text-center">{{receipt.customer.address}}</div></div>
-              </div>
-              <div class="row">
-                <div class="col-md-3"><label class="form-label custom-label">Town:</label></div>
-                <div class="col-md-9"><div class="well well-sm card card-block text-center">{{receipt.customer.town}}</div></div>
-            </div>
-        </div>
-        <div class="col-md-4 text-end">
-            <button type="button" class="btn btn-basic col-6 delete-product-button" (click)="DeleteReceipt(receipt.id)">Delete</button>
-        </div>
-    </div>
-    <div class="row" style="margin-top: 50px;">
+      </div>
+      <div class="col-md-12">
         <div class="scrollable-container-receipt-items">
-            <table class="table table-bordered receipt-item-table" style="margin-top: 30px;">
-                <thead>
+          <table class="table table-hover receipt-item-table">
+              <thead>
+                <tr>
+                  <th class="order-table-background">Product Name</th>
+                  <th class="order-table-background">Quantity</th>
+                  <th class="order-table-background">Price</th>
+                  <th class="order-table-background">Discount%</th>
+                  <th class="order-table-background">Discount Ammount</th>
+                  <th class="order-table-background">Total Price</th>
+                </tr>
+              </thead>
+              <tbody>
+              <ng-container *ngFor="let receiptItem of receiptItems">
                   <tr>
-                    <th class="table-titles">Product Name</th>
-                    <th class="table-titles">Quantity</th>
-                    <th class="table-titles">Price</th>
-                    <th class="table-titles">Discount%</th>
-                    <th class="table-titles">Discount Ammount</th>
-                    <th class="table-titles">Total Price</th>
-                  </tr>
-                </thead>
-                <tbody>
-                <ng-container *ngFor="let receiptItem of receiptItems">
-                    <tr>
-                        <td class="table-data">{{receiptItem.product.name}}</td>
-                        <td class="table-data">{{receiptItem.quantity}}</td>
-                        <td class="table-data">{{receiptItem.price}}</td>
-                        <td class="table-data">{{receiptItem.discountPercentage}}</td>
-                        <td class="table-data">{{receiptItem.discountAmmount}}</td>
-                        <td class="table-data">{{receiptItem.totalPrice}}</td>
-                      </tr>
-                </ng-container>             
-                </tbody>
-              </table>
-            </div>
+                      <td class="table-data order-table-background">{{receiptItem.product.name}}</td>
+                      <td class="table-data order-table-background">{{receiptItem.quantity}}</td>
+                      <td class="table-data order-table-background">{{receiptItem.price}}</td>
+                      <td class="table-data order-table-background">{{receiptItem.discountPercentage}}</td>
+                      <td class="table-data order-table-background">{{receiptItem.discountAmmount}}</td>
+                      <td class="table-data order-table-background">{{receiptItem.totalPrice}}</td>
+                    </tr>
+              </ng-container>             
+              </tbody>
+            </table>
+          </div>
+      </div>
+    </div>
+    <div class="row" style="margin-top: 80px;">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-7">
+            <label class="form-label order-totals">Total Discounts: </label>
+          </div>
+          <div class="col-md-5">
+            <label class="form-label order-totals" style="color: black;">{{receiptTotals.TotalDiscounts}} $</label>
+          </div>
+        </div>       
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-5">
+            <label class="form-label order-totals">Tax: </label>
+          </div>
+          <div class="col-md-7">
+            <label class="form-label order-totals" style="color: black;">{{receiptTotals.Tax}} $</label>
+          </div>
+        </div>       
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-7">
+            <label class="form-label order-totals">Sub Total: </label>
+          </div>
+          <div class="col-md-5">
+            <label class="form-label order-totals" style="color: black;">{{receiptTotals.SubTotal}} $</label>
+          </div>
         </div>
-
-        <div class="row" style="margin-top: 30px;">
-            <div class="col-md-12">
-                <table class="table table-bordered receipt-item-table" style="margin-top: 10px;">
-                    <thead>
-                      <tr class="text-end">
-                        <th class="table-titles">Tax</th>
-                        <th class="table-titles">Total discounts</th>
-                        <th class="table-titles">Sub total</th>
-                        <th class="table-titles">TOTAL</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="text-end">
-                            <td class="table-data">{{receiptTotals.Tax}}</td>
-                            <td class="table-data">{{receiptTotals.TotalDiscounts}}</td>
-                            <td class="table-data">{{receiptTotals.SubTotal}}</td>
-                            <td class="total-price">{{receiptTotals.Total}}</td>
-                        </tr>           
-                    </tbody>
-                  </table>
-            </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-5">
+            <label class="form-label order-totals" style="font-size:22px ;">Total: </label>
+          </div>
+          <div class="col-md-7">
+            <label class="form-label total-price" >{{receiptTotals.Total}} $</label>
+          </div>
         </div>
-        
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4" style="background-color:rgba(0, 90, 208, 0.844); ;"></div>
 </div>
-
-

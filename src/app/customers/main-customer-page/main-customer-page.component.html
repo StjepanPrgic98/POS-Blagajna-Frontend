@@ -1,44 +1,111 @@
-
-<div class="row" style="margin-top: 50px;">
-    <div class="col-md-2">
-    </div>
-    <div class="col-md-3">
-    
-    </div>
-    <div class="col-md-3"></div>
-    <div class="col-md-2">
-      <form #searchCustomerByNameForm="ngForm">
-        <div class="form-group">
-          <label class="form-label custom-label">Search customer by name</label>
-          <input type="text" class="form-control" id="usr" name="customerName" [(ngModel)]="customerName" (input)="GetCustomersThatContainsName()">
-        </div>
-      </form>
-    </div>
-    <div class="col-md-12" style="margin-top: 50px;">
-      <button type="button" class="btn add-customer-button col-2" routerLink="/customers/create">Add Customer <i class="fa fa-plus" aria-hidden="true" style="margin-left: 10px;"></i></button>
-      <div class="scrollable-container">
-        <table class="table table-hover" style="margin-top: 20px;">
-          <thead>
-            <tr>
-              <th>Customer Name</th>
-              <th>Adress</th>
-              <th>Town</th>
-            </tr>
-          </thead>
-          <tbody>
-            <ng-container *ngFor="let customer of customers">
-              <tr routerLink="/customers/edit/{{customer.name}}" *ngIf="customer.name != null && customer.name != '-'">
-                <td>{{customer.name}}</td>
-                <td>{{customer.address}}</td>
-                <td>{{customer.town}}</td>
-              </tr>
-            </ng-container>
-            
-          </tbody>
-        </table>
+<div class="row">
+  <div class="col-md-8 customer-list-section" style="height: 100vh;">
+    <div class="row">
+      <div class="col-md-7"></div>
+      <div class="col-md-4">
+        <form #searchCustomerByNameForm="ngForm">
+          <div class="form-group" style="margin-top: 30px;">
+            <label class="form-label custom-label-black">Search customer by name</label>
+            <input type="text" class="form-control" id="usr" name="customerName" [(ngModel)]="customerName" (input)="GetCustomersThatContainsName()">
+          </div>
+        </form>
       </div>
+      <div class="col-md-12" style="margin-top: 50px;">
+        <div class="scrollable-container">
+          <table class="table table-hover" style="margin-top: 20px;">
+            <thead>
+              <tr>
+                <th>Customer Name</th>
+                <th>Adress</th>
+                <th>Town</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let customer of customers">
+                <tr (click)="StartCustomerUpdating(customer)" *ngIf="customer.name != null && customer.name != '-'">
+                  <td>{{customer.name}}</td>
+                  <td>{{customer.address}}</td>
+                  <td>{{customer.town}}</td>
+                </tr>
+              </ng-container>
+              
+            </tbody>
+          </table>
+        </div>
+        
       
-    
+      </div>
     </div>
   </div>
-  
+  <div class="col-md-4 create-customer-section" style="height: 100vh;">
+    <div class="row">
+      <div class="col-md-12">
+        <h1 class="text-center" style="color: white; margin-top: 20px;" *ngIf="!isUpdatingCustomer">Create customer</h1>
+        <h1 class="text-center" style="color: white; margin-top: 20px;" *ngIf="isUpdatingCustomer">Update customer</h1>
+        <div class="container" style="margin-top: 50px;">
+          <div class="row" *ngIf="!isUpdatingCustomer">
+            <div class="col-md-1"></div>
+              <div class="col-md-10 text-center">
+                  <form #createCustomerForm="ngForm">
+                      <div class="form-group">
+                        <label class="custom-label">Customer Name:</label>
+                        <input type="text" class="form-control" name="Name" [(ngModel)]="newCustomer.Name">
+                      </div>
+                      <div class="form-group">
+                          <label class="custom-label">Address:</label>
+                          <input type="text" class="form-control" name="Address" [(ngModel)]="newCustomer.Address">
+                        </div>
+                        <div class="form-group">
+                          <label class="custom-label">Town:</label>
+                          <input type="text" class="form-control" name="Town" [(ngModel)]="newCustomer.Town">
+                        </div>
+                        <div class="col-md-12 text-center" style="margin-top: 50px;">
+                          <button type="button" class="btn btn-primary col-8 add-customer-button" (click)="CreateCustomer()">Create</button>
+                      </div>             
+                    </form>
+              </div>
+          </div>
+          <div class="row" *ngIf="isUpdatingCustomer">
+            <div class="col-md-1"></div>
+              <div class="col-md-10 text-center">
+                  <form #createCustomerForm="ngForm">
+                      <div class="form-group">
+                        <label class="custom-label">Customer Name:</label>
+                        <input type="text" class="form-control" name="Name" [(ngModel)]="editedCustomer.Name">
+                      </div>
+                      <div class="form-group">
+                          <label class="custom-label">Address:</label>
+                          <input type="text" class="form-control" name="Address" [(ngModel)]="editedCustomer.Address">
+                        </div>
+                        <div class="form-group">
+                          <label class="custom-label">Town:</label>
+                          <input type="text" class="form-control" name="Town" [(ngModel)]="editedCustomer.Town">
+                        </div>
+                        <div class="col-md-12 text-center" style="margin-top: 50px;">
+                          <button type="button" class="btn btn-primary col-8 add-customer-button" (click)="UpdateCustomer()">Update</button>
+                      </div> 
+                      <div class="col-md-12 text-center" style="margin-top: 10px;">
+                        <button type="button" class="btn btn-primary col-8 delete-customer-button" (click)="DeleteCustomer()">Delete</button>
+                    </div> 
+                    <div class="col-md-12 text-center" style="margin-top: 100px;">
+                      <button type="button" class="btn btn-primary col-12 stop-customer-editing-button" (click)="StopCustomerEditing()">Stop Editing</button>
+                  </div>            
+                    </form>
+              </div>
+          </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+

@@ -1,55 +1,140 @@
-
-<div class="row" style="margin-top: 50px;">
-  <div class="col-md-2">
-  </div>
-  <div class="col-md-3">
-  
-  </div>
-  <div class="col-md-2"></div>
-  <div class="col-md-2">
-    <form #searchProductByNameForm="ngForm">
-      <div class="form-group">
-        <label class="form-label custom-label">Search product by name</label>
-        <input type="text" class="form-control" id="usr" name="productName" [(ngModel)]="productName" (input)="SearchProductsThatContainName()">
+<div class="row">
+  <div class="col-md-8 product-section" style="height: 100vh;">
+    <div class="row" style="margin-top: 30px;">
+      <div class="col-md-3"></div>
+      <div class="col-md-4">
+        <form #searchProductByNameForm="ngForm">
+          <div class="form-group">
+            <label class="form-label custom-label-black">Search product by name</label>
+            <input type="text" class="form-control" id="usr" name="productName" [(ngModel)]="productName" (input)="SearchProductsThatContainName()">
+          </div>
+        </form>
       </div>
-    </form>
-  </div>
-  <div class="col-md-2">
-    <form #searchProductByCodeForm="ngForm">
-      <div class="form-group">
-        <label class="form-label custom-label" for="typeNumber">Search product by code</label>
-        <input type="number" id="typeNumber" name="productCode" [(ngModel)]="productCode" class="form-control" (input)="SearchProductsThatContainCode()" />
-      </div>   
-    </form>
-  </div>
-  <div class="col-md-12" style="margin-top: 50px;">
-    <button type="button" class="btn add-product-button col-2" routerLink="/products/create">Add Product <i class="fa fa-plus" aria-hidden="true" style="margin-left: 10px;"></i></button>
-    <div class="scrollable-container">
-      <table class="table table-hover" style="margin-top: 20px;">
-        <thead>
-          <tr>
-            <th>Product Code</th>
-            <th>Product Name</th>
-            <th>Unit of Measure</th>
-            <th>Price</th>
-            <th>Storage Quantity</th>
-          </tr>
-        </thead>
-        <tbody>
-          <ng-container *ngFor="let product of products">
-            <tr routerLink="/products/edit/{{product.name}}">
-              <td>{{product.code}}</td>
-              <td>{{product.name}}</td>
-              <td>{{product.unitOfMeasure}}</td>
-              <td>{{product.price}} $</td>
-              <td>{{product.storageQuantity}}</td>
-            </tr>
-          </ng-container>
-          
-        </tbody>
-      </table>
+      <div class="col-md-4">
+        <form #searchProductByCodeForm="ngForm">
+          <div class="form-group">
+            <label class="form-label custom-label-black" for="typeNumber">Search product by code</label>
+            <input type="number" id="typeNumber" name="productCode" [(ngModel)]="productCode" class="form-control" (input)="SearchProductsThatContainCode()" />
+          </div>   
+        </form>
+      </div>
+      <div class="col-md-12" style="margin-top: 50px;">
+        <div class="scrollable-container">
+          <table class="table table-hover product-table" style="margin-top: 20px;">
+            <thead>
+              <tr>
+                <th>Product Code</th>
+                <th>Product Name</th>
+                <th>Unit of Measure</th>
+                <th>Price</th>
+                <th>Storage Quantity</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let product of products">
+                <tr (click)="StartUpdatingProduct(product)">
+                  <td>{{product.code}}</td>
+                  <td>{{product.name}}</td>
+                  <td>{{product.unitOfMeasure}}</td>
+                  <td>{{product.price}} $</td>
+                  <td>{{product.storageQuantity}}</td>
+                </tr>
+              </ng-container>
+              
+            </tbody>
+          </table>
+        </div>
+        
+      
+      </div>
     </div>
-    
-  
+  </div>
+  <div class="col-md-4 create-product-section">
+    <h1 class="text-center" style="color: white; margin-top: 20px;" *ngIf="!isUpdatingProduct">Create Product</h1>
+    <h1 class="text-center" style="color: white; margin-top: 20px;" *ngIf="isUpdatingProduct">Update Product</h1>
+  <div style="margin-top: 20px;" *ngIf="!isUpdatingProduct">
+      <div class="row d-flex justify-content-center">
+          <div class="col-md-8 text-center">
+              <div class="form-group">
+                  <label class="form-label custom-label" for="typeNumber">Code</label>
+                  <input type="number" id="typeNumber" name="StorageQuantity" class="form-control" [(ngModel)]="newProduct.Code">
+              </div> 
+          </div>
+          <div class="col-md-8 text-center">
+              <div class="form-group">
+                  <label class="form-label custom-label">Name</label>
+                  <input type="text" class="form-control" id="usr" name="Name" [(ngModel)]="newProduct.Name">
+                </div>
+          </div>
+          <div class="col-md-8 text-center">
+              <div class="form-group">
+                  <label class="form-label custom-label">Unit of Measure</label>
+                  <input type="text" class="form-control" id="usr" name="UnitOfMeasure" [(ngModel)]="newProduct.UnitOfMeasure">
+                </div>
+          </div>
+          <div class="col-md-8 text-center">
+              <div class="form-group">
+                  <label class="form-label custom-label" for="typeNumber">Price</label>
+                  <input type="number" id="typeNumber" name="Price" class="form-control" [(ngModel)]="newProduct.Price">
+              </div> 
+          </div>
+          <div class="col-md-8 text-center">
+              <div class="form-group">
+                  <label class="form-label custom-label" for="typeNumber">Storage Quantity</label>
+                  <input type="number" id="typeNumber" name="StorageQuantity" class="form-control" [(ngModel)]="newProduct.StorageQuantity">
+              </div> 
+          </div>
+          
+          <div class="col-md-11 text-center" style="margin-top: 50px;">
+              <button type="button" class="btn btn-primary col-7  add-product-button" (click)="CreateProduct()">Create</button>
+          </div>
+          
+      </div> 
+      
+  </div>
+  <div style="margin-top: 20px;" *ngIf="isUpdatingProduct">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-8 text-center">
+            <div class="form-group">
+                <label class="form-label custom-label" for="typeNumber">Code</label>
+                <input type="number" id="typeNumber" name="StorageQuantity" class="form-control" [(ngModel)]="editedProduct.Code">
+            </div> 
+        </div>
+        <div class="col-md-8 text-center">
+            <div class="form-group">
+                <label class="form-label custom-label">Name</label>
+                <input type="text" class="form-control" id="usr" name="Name" [(ngModel)]="editedProduct.Name">
+              </div>
+        </div>
+        <div class="col-md-8 text-center">
+            <div class="form-group">
+                <label class="form-label custom-label">Unit of Measure</label>
+                <input type="text" class="form-control" id="usr" name="UnitOfMeasure" [(ngModel)]="editedProduct.UnitOfMeasure">
+              </div>
+        </div>
+        <div class="col-md-8 text-center">
+            <div class="form-group">
+                <label class="form-label custom-label" for="typeNumber">Price</label>
+                <input type="number" id="typeNumber" name="Price" class="form-control" [(ngModel)]="editedProduct.Price">
+            </div> 
+        </div>
+        <div class="col-md-8 text-center">
+            <div class="form-group">
+                <label class="form-label custom-label" for="typeNumber">Storage Quantity</label>
+                <input type="number" id="typeNumber" name="StorageQuantity" class="form-control" [(ngModel)]="editedProduct.StorageQuantity">
+            </div> 
+        </div>
+        
+        <div class="col-md-11 text-center" style="margin-top: 50px;">
+            <button type="button" class="btn btn-primary col-7  add-product-button" (click)="EditProduct()">Update</button>
+        </div>
+        <div class="col-md-11 text-center" style="margin-top: 10px;">
+          <button type="button" class="btn btn-primary col-7  delete-product-button" (click)="DeleteProduct()">Delete</button>
+      </div>
+      <div class="col-md-11 text-center" style="margin-top: 50px;">
+        <button type="button" class="btn btn-primary col-10  stop-product-editing-button" (click)="StopProductEditing()">Stop editing</button>
+    </div>
+        
+    </div> 
   </div>
 </div>
