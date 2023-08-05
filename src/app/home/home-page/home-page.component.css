@@ -1,0 +1,49 @@
+.login-section
+{
+    background-color: rgba(230, 230, 230, 0.393);
+}
+
+.register-section
+{
+    background-color: rgba(0, 90, 208, 0.844);
+}
+
+
+.custom-label-black
+{
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.custom-label
+{
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+.custom-label-register
+{
+    font-size: 35px;
+    font-weight: bold;
+    color: white;
+}
+.login-field
+{
+    background-color: rgba(230, 230, 230, 0.811);
+}
+
+.login-title
+{
+  font-weight: bold;
+  font-size: 40px;
+  color: rgba(0, 110, 255, 0.795);
+  text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;
+}
+
+.login-button
+{
+    background-color: rgb(0, 0, 0);
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+}

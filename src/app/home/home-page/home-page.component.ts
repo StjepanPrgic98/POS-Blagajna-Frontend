@@ -7,4 +7,13 @@ import { Component } from '@angular/core';
 })
 export class HomePageComponent {
 
+  isRegistering: boolean = false
+
+
+
+
+  StartRegistering()
+  {
+    this.isRegistering = true
+  }
 }

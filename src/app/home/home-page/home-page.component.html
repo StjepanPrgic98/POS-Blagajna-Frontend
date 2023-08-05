@@ -1,1 +1,92 @@
-<h1>I am the home page GOD</h1>
+<div class="row">
+    <div class="col-md-8 login-section" style="height: 100vh;">
+        <div class="row text-center" style="margin-top: 100px;">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <h1 style="margin-top: 70px;" class="login-title">Login</h1>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+        <form #loginForm="ngForm">
+            <div class="row text-center" style="margin-top: 30px;">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label custom-label-black">Email</label>
+                        <input type="email" class="form-control login-field">
+                    </div>       
+                </div>
+            </div>
+            <div class="row text-center" style="margin-top: 30px;">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label custom-label-black">Password</label>
+                        <input type="password" class="form-control login-field">
+                    </div>       
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6 text-center" style="margin-top: 50px;">
+                    <button type="button" class="btn btn-primary col-7  login-button">Confirm</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-4 register-section" style="height: 100vh;">
+        <div class="row" style="margin-top: 50px;" *ngIf="!isRegistering">
+            <div class="col-md-12 text-center">
+                <label class="form-label custom-label">Create account</label>
+            </div>
+            <div class="col-md-12 text-center">
+                <button type="button" class="btn btn-primary col-7  login-button" (click)="StartRegistering()">Register</button>
+            </div>
+        </div>
+        <form #registerForm="ngForm">
+            <div class="row" style="margin-top: 80px;" *ngIf="isRegistering">
+                <div class="col-md-12 text-center">
+                    <label class="form-label custom-label-register">Register</label>
+                </div>
+                <div class="col-md-2"></div>
+                <div class="col-md-8 text-center">
+                    <div class="form-group" style="margin-top: 15px;">
+                        <label class="form-label custom-label">Email</label>
+                        <input type="email" class="form-control">
+                    </div>     
+                </div>
+                <div class="col-md-2"></div>
+
+                <div class="col-md-2"></div>
+                <div class="col-md-8 text-center">
+                    <div class="form-group" style="margin-top: 15px;">
+                        <label class="form-label custom-label">Username</label>
+                        <input type="text" class="form-control">
+                    </div>     
+                </div>
+                <div class="col-md-2"></div>
+
+                <div class="col-md-2"></div>
+                <div class="col-md-8 text-center">
+                    <div class="form-group" style="margin-top: 15px;">
+                        <label class="form-label custom-label">Password</label>
+                        <input type="password" class="form-control">
+                    </div>     
+                </div>
+                <div class="col-md-2"></div>
+
+                <div class="col-md-2"></div>
+                <div class="col-md-8 text-center">
+                    <div class="form-group" style="margin-top: 15px;">
+                        <label class="form-label custom-label">Confirm password</label>
+                        <input type="password" class="form-control">
+                    </div>     
+                </div>
+                <div class="col-md-2"></div>
+                <div class="col-md-12 text-center">
+                    <button type="button" class="btn btn-primary col-5  login-button" style="margin-top: 50px;">Create</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
