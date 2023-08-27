@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Customer } from 'src/app/_models/customers/Customer';
 import { EditedCustomer } from 'src/app/_models/customers/EditedCustomer';
@@ -12,7 +13,7 @@ import { CustomerService } from 'src/app/_services/customer.service';
 })
 export class MainCustomerPageComponent {
 
-  constructor(private customerService: CustomerService, private toastr: ToastrService){}
+  constructor(private customerService: CustomerService, private toastr: ToastrService, private modalService: BsModalService){}
 
   customers: Customer[] | undefined
   
@@ -25,6 +26,9 @@ export class MainCustomerPageComponent {
 
   abortCreatingCustomer: boolean = false
   abortEditingCustomer: boolean = false
+
+  modalRef?: BsModalRef;
+  message?: string;
 
   CreateCustomer()
   {
@@ -123,4 +127,18 @@ export class MainCustomerPageComponent {
     if(this.editedCustomer.Town == "" || this.editedCustomer.Town == null || this.editedCustomer.Town == undefined){this.abortEditingCustomer = true; this.toastr.error("Enter customer town!", "Warning!")}
   }
 
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
+  }
+ 
+  confirm(): void {
+    this.message = 'Confirmed!';
+    this.modalRef?.hide();
+  }
+ 
+  decline(): void {
+    this.message = 'Declined!';
+    this.modalRef?.hide();
+  }
 }

@@ -9,6 +9,11 @@ import { ProductService } from './_services/product.service';
 export class AppComponent {
 
   constructor(private productService: ProductService){}
+  /*@HostListener("window:beforeunload", ["$event"])
+    unloadNotification($event: any)
+    {
+      $event.returnValue = true;
+    }*/
 
   title = 'POS-Blagajna-Frontend';
 

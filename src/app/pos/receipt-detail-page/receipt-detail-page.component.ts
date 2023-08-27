@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { ReceiptItem } from 'src/app/_models/receipt-items/ReceiptItem';
 import { Receipt } from 'src/app/_models/receipts/Receipt';
@@ -15,12 +16,15 @@ import { UserService } from 'src/app/_services/user.service';
 })
 export class ReceiptDetailPageComponent {
 
-  constructor(private receiptService: ReceiptService, private router: Router, private toastr: ToastrService, private userService: UserService){}
+  constructor(private receiptService: ReceiptService, private router: Router, private toastr: ToastrService, private userService: UserService, private modalService: BsModalService){}
 
   receipt: Receipt | undefined
   receiptItems: ReceiptItem[] = []
   receiptTotals: ReceiptTotals = {Tax: 0, Total: 0, SubTotal: 0, TotalDiscounts: 0}
   baseTax: number = 2
+
+  modalRef?: BsModalRef;
+  message?: string;
 
 
   ngOnInit()
@@ -70,5 +74,19 @@ export class ReceiptDetailPageComponent {
       })
   }
 
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
+  }
+ 
+  confirm(): void {
+    this.message = 'Confirmed!';
+    this.modalRef?.hide();
+  }
+ 
+  decline(): void {
+    this.message = 'Declined!';
+    this.modalRef?.hide();
+  }
  
 }

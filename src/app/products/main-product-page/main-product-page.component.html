@@ -142,8 +142,15 @@
             <button type="button" class="btn btn-primary col-7  add-product-button" (click)="EditProduct()">Update</button>
         </div>
         <div class="col-md-11 text-center" style="margin-top: 10px;">
-          <button type="button" class="btn btn-primary col-7  delete-product-button" (click)="DeleteProduct()">Delete</button>
+          <button type="button" class="btn btn-primary col-7  delete-product-button" (click)="openModal(template)">Delete</button>
       </div>
+      <ng-template #template>
+        <div class="modal-body text-center">
+          <p><strong>Do you want to delete this product?</strong></p>
+          <button type="button" class="btn btn-danger confirm-product-delete" (click)="DeleteProduct() ;confirm()" style="margin-right: 3px;" >Yes</button>
+          <button type="button" class="btn btn-primary" (click)="decline()" style="margin-right: 3px;" >No</button>
+        </div>
+      </ng-template>
       <div class="col-md-11 text-center" style="margin-top: 30px;">
         <button type="button" class="btn btn-primary col-10  stop-product-editing-button" (click)="StopProductEditing()">Stop editing</button>
     </div>

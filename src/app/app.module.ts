@@ -22,6 +22,7 @@ import { HistoryPageComponent } from './pos/history-page/history-page.component'
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ReceiptDetailPageComponent } from './pos/receipt-detail-page/receipt-detail-page.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { ReceiptDetailPageComponent } from './pos/receipt-detail-page/receipt-de
     CollapseModule.forRoot(),
     BsDatepickerModule.forRoot(),
     BsDropdownModule.forRoot(),
+    ModalModule.forChild(),
     ToastrModule.forRoot(
       {
         positionClass: "toast-bottom-right",

@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { EditedProduct } from 'src/app/_models/products/EditedProduct';
 import { NewProduct } from 'src/app/_models/products/NewProduct';
@@ -13,7 +14,7 @@ import { ProductService } from 'src/app/_services/product.service';
 })
 export class MainProductPageComponent {
 
-  constructor(private productService: ProductService, private route: ActivatedRoute, private toastr: ToastrService){}
+  constructor(private productService: ProductService, private route: ActivatedRoute, private toastr: ToastrService, private modalService: BsModalService){}
 
   products: any
   productCode: number | undefined;
@@ -30,6 +31,9 @@ export class MainProductPageComponent {
   abortProductEdit: boolean = false
 
   increaseProductQuantity: number = 0
+
+  modalRef?: BsModalRef;
+  message?: string;
 
   
   ngOnInit()
@@ -159,5 +163,19 @@ export class MainProductPageComponent {
     this.increaseProductQuantity = 0
   }
 
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
+  }
+ 
+  confirm(): void {
+    this.message = 'Confirmed!';
+    this.modalRef?.hide();
+  }
+ 
+  decline(): void {
+    this.message = 'Declined!';
+    this.modalRef?.hide();
+  }
 
 }
