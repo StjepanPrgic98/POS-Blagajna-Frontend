@@ -26,7 +26,7 @@
 {
   background-color: rgba(0, 90, 208, 0);
   color: rgb(255, 255, 255);
-  font-size: 15px;
+  font-size: 12px;
 }
 
 .order-totals
@@ -41,6 +41,20 @@
 {
     font-size: 10px;
     font-weight: bold;
+}
+
+.employee-label
+{
+  font-size: 12px;
+  font-weight: bold;
+  color: rgba(0, 90, 208, 0.844);
+}
+
+.employee-name
+{
+  font-size: 12px;
+  font-weight: bold;
+  margin-left: 3px;
 }
 
 .customer-label

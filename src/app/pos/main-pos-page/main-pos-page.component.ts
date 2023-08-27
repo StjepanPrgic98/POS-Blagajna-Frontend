@@ -5,10 +5,12 @@ import { Product } from 'src/app/_models/products/Product';
 import { NewReceiptItem } from 'src/app/_models/receipt-items/NewReceiptItem';
 import { NewReceipt } from 'src/app/_models/receipts/NewReceipt';
 import { ReceiptTotals } from 'src/app/_models/receipts/ReceiptTotals';
+import { User } from 'src/app/_models/users/User';
 import { CustomerService } from 'src/app/_services/customer.service';
 import { ProductService } from 'src/app/_services/product.service';
 import { ReceiptItemService } from 'src/app/_services/receipt-item.service';
 import { ReceiptService } from 'src/app/_services/receipt.service';
+import { UserService } from 'src/app/_services/user.service';
 
 @Component({
   selector: 'app-main-pos-page',
@@ -17,6 +19,18 @@ import { ReceiptService } from 'src/app/_services/receipt.service';
 })
 export class MainPosPageComponent {
 
+  constructor(private productService: ProductService,
+    private elementRef: ElementRef,
+    private customerService: CustomerService,
+    private receiptService: ReceiptService,
+    private toastr: ToastrService,
+    private receiptItemService: ReceiptItemService,
+    private userService: UserService
+    ) {
+
+  }
+
+  onlineUser: User = {username: ""}
 
   products: Product[] | undefined
   productChosen: Product | undefined
@@ -29,28 +43,22 @@ export class MainPosPageComponent {
   receiptItemDiscountPercentage: number = 10
 
   receiptTotals: ReceiptTotals = {Tax: 0, TotalDiscounts: 0, SubTotal: 0, Total: 0}
-  baseTax: number = 2
+  baseTax: number = 0.02
 
   customer: Customer | undefined
   customers: Customer[] = []
   customerName: string = ""
   showCustomerData: boolean = false
 
-  receipt: NewReceipt = {Number: 0, Note: "", CustomerName: "", ReceiptItems: []}
+  receipt: NewReceipt = {Number: 0, Note: "", CustomerName: "", EmployeeName: "", ReceiptItems: []}
 
-  constructor(private productService: ProductService,
-    private elementRef: ElementRef,
-    private customerService: CustomerService,
-    private receiptService: ReceiptService,
-    private toastr: ToastrService,
-    private receiptItemService: ReceiptItemService
-    ) {
 
-  }
 
   ngOnInit()
   {
     this.GetProducts()
+    if(this.userService.GetOnlineUser().username == ""){return}
+    this.onlineUser = this.userService.GetOnlineUser()
   }
 
   GetNewReceiptNumber()
@@ -199,7 +207,7 @@ export class MainPosPageComponent {
       this.receiptItems.splice(index, 1);
     }
 
-    console.log(this.receiptItems)
+    this.CalculateReceiptTotals()
   }
 
   CalculateReceiptTotals() {
@@ -267,6 +275,7 @@ export class MainPosPageComponent {
   GenerateReceiptData()
   {
     this.receipt.ReceiptItems = this.receiptItems;
+    this.receipt.EmployeeName = this.onlineUser.username;
 
     if(!this.customer)
     {

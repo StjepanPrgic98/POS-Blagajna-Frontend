@@ -32,11 +32,13 @@
 
 .receipt-cards
 {
-    font-size: 15px;
-    background-color: rgba(0, 90, 208, 0.844);
-    color: white;
+    font-size: 13px;
+    background-color: rgba(230, 230, 230, 0.393);
+    color: rgb(0, 0, 0);
     border: 2px solid #000000; 
     border-radius: 5px;
+    font-weight: bold;
+    margin-top: 10px;
 }
 
 .scrollable-container {
@@ -59,4 +61,18 @@
     color: white;
     font-weight: bold;
     font-size: 20px;
+}
+
+.employee-label
+{
+  font-size: 12px;
+  font-weight: bold;
+  color: rgba(0, 90, 208, 0.844);
+}
+
+.employee-name
+{
+  font-size: 12px;
+  font-weight: bold;
+  margin-left: 3px;
 }

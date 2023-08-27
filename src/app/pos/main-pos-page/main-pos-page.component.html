@@ -2,7 +2,21 @@
   <div class="col-md-5 order-section" style="height: 100vh;">
     <div class="row">
       <div class="col-md-4 text-start">
-        <label class="form-label order-number" style="margin-top: 10px;">Order: {{receipt.Number}}</label>
+        <div class="row">
+          <div class="col-md-12">
+            <label class="form-label order-number" style="margin-top: 10px;">Order: {{receipt.Number}}</label>
+          </div>
+          <div class="col-md-12" style="margin-top: 25px;">
+            <div class="row">
+              <div class="col-md-4">
+                <label class="form-label employee-label">Employee:</label>
+              </div>
+              <div class="col-md-8">
+                <label class="form-label employee-name">{{onlineUser.username}}</label>
+              </div>
+            </div>   
+          </div>
+        </div>
       </div>
       <div class="col-md-8" style="height: 110px;">
           <div class="container" *ngIf="!showCustomerData">
@@ -177,7 +191,7 @@
                   <td class="table-data product-table-background">{{product.name}}</td>
                   <td class="table-data product-table-background">{{product.unitOfMeasure}}</td>
                   <td class="table-data product-table-background">{{product.price}} $</td>
-                  <td class="table-data product-table-background">{{product.storageQuantity}}</td>
+                  <td class="table-data product-table-background text-center">{{product.storageQuantity}}</td>
                 </tr>
               </ng-container>
               

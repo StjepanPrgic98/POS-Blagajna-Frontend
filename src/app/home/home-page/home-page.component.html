@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-8 login-section" style="height: 100vh;">
+    <div class="col-md-8 login-section" style="height: 100vh;" *ngIf="!onlineUser">
         <div class="row text-center" style="margin-top: 100px;">
             <div class="col-md-4"></div>
             <div class="col-md-4">
@@ -13,7 +13,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="form-label custom-label-black">Email</label>
-                        <input type="email" class="form-control login-field">
+                        <input type="email" class="form-control login-field" name="email" [(ngModel)]="loginUser.email">
                     </div>       
                 </div>
             </div>
@@ -22,17 +22,31 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="form-label custom-label-black">Password</label>
-                        <input type="password" class="form-control login-field">
+                        <input type="password" class="form-control login-field" name="password" [(ngModel)]="loginUser.password">
                     </div>       
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-6 text-center" style="margin-top: 50px;">
-                    <button type="button" class="btn btn-primary col-7  login-button">Confirm</button>
+                    <button type="button" class="btn btn-primary col-7  login-button" (click)="Login()">Login</button>
                 </div>
             </div>
         </form>
+    </div>
+    <div class="col-md-8 login-section" style="height: 100vh;" *ngIf="onlineUser">
+        <div class="row text-center" style="margin-top: 170px;">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <h1 style="margin-top: 70px;" class="login-title">Logged in as {{onlineUser.username}}</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6 text-center" style="margin-top: 50px;">
+                <button type="button" class="btn btn-primary col-7  login-button" (click)="Logout()">Logout</button>
+            </div>
+        </div>
     </div>
     <div class="col-md-4 register-section" style="height: 100vh;">
         <div class="row" style="margin-top: 50px;" *ngIf="!isRegistering">
@@ -52,7 +66,7 @@
                 <div class="col-md-8 text-center">
                     <div class="form-group" style="margin-top: 15px;">
                         <label class="form-label custom-label">Email</label>
-                        <input type="email" class="form-control">
+                        <input type="email" class="form-control" name="email" [(ngModel)]="newUser.email">
                     </div>     
                 </div>
                 <div class="col-md-2"></div>
@@ -61,7 +75,7 @@
                 <div class="col-md-8 text-center">
                     <div class="form-group" style="margin-top: 15px;">
                         <label class="form-label custom-label">Username</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" name="username" [(ngModel)]="newUser.username">
                     </div>     
                 </div>
                 <div class="col-md-2"></div>
@@ -70,7 +84,7 @@
                 <div class="col-md-8 text-center">
                     <div class="form-group" style="margin-top: 15px;">
                         <label class="form-label custom-label">Password</label>
-                        <input type="password" class="form-control">
+                        <input type="password" class="form-control" name="password" [(ngModel)]="newUser.password">
                     </div>     
                 </div>
                 <div class="col-md-2"></div>
@@ -79,12 +93,12 @@
                 <div class="col-md-8 text-center">
                     <div class="form-group" style="margin-top: 15px;">
                         <label class="form-label custom-label">Confirm password</label>
-                        <input type="password" class="form-control">
+                        <input type="password" class="form-control" name="confirmPassword" [(ngModel)]="confirmPassword">
                     </div>     
                 </div>
                 <div class="col-md-2"></div>
                 <div class="col-md-12 text-center">
-                    <button type="button" class="btn btn-primary col-5  login-button" style="margin-top: 50px;">Create</button>
+                    <button type="button" class="btn btn-primary col-5  login-button" style="margin-top: 50px;" (click)="Register()">Create</button>
                 </div>
             </div>
         </form>

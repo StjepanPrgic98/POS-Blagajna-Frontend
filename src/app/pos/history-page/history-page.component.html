@@ -162,20 +162,20 @@
                                             <div class="well well-sm card card-block text-center receipt-cards" style="margin-bottom: 3px;" (click)="GoToReceiptDetails(receipt)">
                                                 <div class="row" style="margin-top: 5px;">
                                                     <div class="col-md-2">{{CalculateReceiptTime(receipt)}}</div>
+                                                    <div class="col-md-3 text-start" *ngIf="receipt.employee != null">{{receipt.employee.userName}}</div>   
+                                                    <div class="col-md-3 text-start" *ngIf="receipt.employee == null"></div>  
                                                     <div class="col-md-4" *ngIf="receipt.customer == null"></div>
                                                     <ng-container *ngIf="receipt.customer != null">
                                                         <div class="col-md-4 text-start" *ngIf="receipt.customer.name != null && receipt.customer.name != '-'">{{receipt.customer.name}}</div>           
                                                         <div class="col-md-4 text-start" *ngIf="receipt.customer.name != null && receipt.customer.name == '-'">Walk in</div>
                                                     </ng-container>    
-                                                    <div class="col-md-3"></div>      
-                                                    <div class="col-md-3">{{CalculateReceiptsTotalPrice(receipt.receiptItems)}} $</div>
+                                                    <div class="col-md-3 text-center">{{CalculateReceiptsTotalPrice(receipt.receiptItems)}} $</div>
                                                 </div>
                                                 <div class="row" style="margin-top: 12px; margin-bottom: 5px;">
-                                                    <div class="col-md-2" *ngIf="!displayHistoryForDay">{{CalculateReceiptDate(receipt)}}</div>
-                                                    <div class="col-md-2" *ngIf="displayHistoryForDay"></div>
+                                                    <div class="col-md-2">{{CalculateReceiptDate(receipt)}}</div>
                                                     <div class="col-md-3 text-start">{{receipt.number}}</div>
-                                                    <div class="col-md-1"></div>
-                                                    <div class="col-md-6 ">{{receipt.note}}</div>
+
+                                                    <div class="col-md-6 text-start ">{{receipt.note}}</div>
                                                     
                                                     
                                                    

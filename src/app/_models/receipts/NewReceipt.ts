@@ -6,5 +6,6 @@ export interface NewReceipt
     Number: number
     Note: string
     CustomerName: string
+    EmployeeName: string
     ReceiptItems: NewReceiptItem[]
 }

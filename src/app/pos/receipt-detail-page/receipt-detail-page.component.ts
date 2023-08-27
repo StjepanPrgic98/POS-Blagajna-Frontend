@@ -4,7 +4,9 @@ import { ToastrService } from 'ngx-toastr';
 import { ReceiptItem } from 'src/app/_models/receipt-items/ReceiptItem';
 import { Receipt } from 'src/app/_models/receipts/Receipt';
 import { ReceiptTotals } from 'src/app/_models/receipts/ReceiptTotals';
+import { User } from 'src/app/_models/users/User';
 import { ReceiptService } from 'src/app/_services/receipt.service';
+import { UserService } from 'src/app/_services/user.service';
 
 @Component({
   selector: 'app-receipt-detail-page',
@@ -13,17 +15,17 @@ import { ReceiptService } from 'src/app/_services/receipt.service';
 })
 export class ReceiptDetailPageComponent {
 
-  constructor(private receiptService: ReceiptService, private router: Router, private toastr: ToastrService){}
+  constructor(private receiptService: ReceiptService, private router: Router, private toastr: ToastrService, private userService: UserService){}
 
   receipt: Receipt | undefined
   receiptItems: ReceiptItem[] = []
   receiptTotals: ReceiptTotals = {Tax: 0, Total: 0, SubTotal: 0, TotalDiscounts: 0}
   baseTax: number = 2
 
+
   ngOnInit()
   {
     if(this.receiptService.GetCachedReceipt() == null){this.router.navigateByUrl("pos/history")}
-
     this.GetReceipt()
   }
 
@@ -35,6 +37,8 @@ export class ReceiptDetailPageComponent {
     this.receiptItems = this.receipt.receiptItems
 
     this.CalculateReceiptTotals()
+
+    console.log(this.receipt)
   }
 
   CalculateReceiptTotals()

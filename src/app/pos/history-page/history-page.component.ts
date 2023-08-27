@@ -35,6 +35,8 @@ export class HistoryPageComponent {
   date: any;
   bsInlineValue = new Date();
   bsConfig: Partial<BsDatepickerConfig> | undefined;
+
+  
   
 
   
@@ -48,7 +50,7 @@ export class HistoryPageComponent {
     if(!this.purchaseHistoryFilters){return}
     this.receiptService.GetReceiptsForChosenDate(purchaseHistoryFilters, option).subscribe(
       {
-        next: response => {this.receiptHistory = response, this.receipts = response.receipts},
+        next: response => {this.receiptHistory = response, this.receipts = response.receipts, console.log(response)},
         error: error => console.log(error)
       })
   }
