@@ -37,6 +37,7 @@ export class MainPosPageComponent {
   productCode: number | undefined;
   productName: string = "";
   productPrice: number = 0;
+  productQuantity: number = 0;
 
   newReceiptItem: NewReceiptItem = {ProductName: "", Quantity: 0, Price: 0, DiscountPercentage: 0,DiscountAmmount: 0, TotalPrice: 0}
   receiptItems: NewReceiptItem[] = []
@@ -104,6 +105,12 @@ export class MainPosPageComponent {
 
   CreateReceiptItem(product: Product)
   {
+    if(product.storageQuantity <= 0)
+    {
+      this.toastr.error("There are no units of this product in storage!", "Warning!");
+      return;
+    }
+    
     this.productChosen = product
 
     for (let i = 0; i < this.receiptItems.length; i++) 
@@ -138,13 +145,20 @@ export class MainPosPageComponent {
   SubmitProductQuantity(existingReceiptItem: NewReceiptItem) 
   {
 
-    this.GetCurrentProductPrice(existingReceiptItem.ProductName);
+    this.GetCurrentProductPriceAndQuantity(existingReceiptItem.ProductName);
   
     if (!this.productPrice){return;}
     
     if (existingReceiptItem.Quantity <= 0 || existingReceiptItem.Quantity == null) 
     {
       existingReceiptItem.Quantity = 1;
+    }
+
+    if(existingReceiptItem.Quantity > this.productQuantity)
+    {
+      existingReceiptItem.Quantity = this.productQuantity;
+      this.toastr.error("Not enough products in storage!", "Warnign!");
+      return;
     }
     
     existingReceiptItem.Price = +(this.productPrice * existingReceiptItem.Quantity).toFixed(2);
@@ -185,7 +199,7 @@ export class MainPosPageComponent {
     this.CalculateReceiptTotals()
   }
 
-  GetCurrentProductPrice(productName: string)
+  GetCurrentProductPriceAndQuantity(productName: string)
   {
     if(!this.products){return}
     for (let i = 0; i < this.products.length; i++)
@@ -193,6 +207,7 @@ export class MainPosPageComponent {
       if(productName == this.products[i].name)
       {
         this.productPrice = this.products[i].price
+        this.productQuantity = this.products[i].storageQuantity
       }
     }
   }
@@ -301,6 +316,11 @@ export class MainPosPageComponent {
         error: error => {this.toastr.error("Purchase failed", "Warning!"), console.log(error)}
       })
     
+  }
+
+  CheckIfStorageQuantityIsSufficient()
+  {
+
   }
 
   ResetPOSData()
