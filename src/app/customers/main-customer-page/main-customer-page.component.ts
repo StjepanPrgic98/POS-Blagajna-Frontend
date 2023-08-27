@@ -23,8 +23,15 @@ export class MainCustomerPageComponent {
 
   isUpdatingCustomer: boolean = false
 
+  abortCreatingCustomer: boolean = false
+  abortEditingCustomer: boolean = false
+
   CreateCustomer()
   {
+    this.ValidateNewCustomer();
+
+    if(this.abortCreatingCustomer){return;}
+
     this.customerService.CreateCustomer(this.newCustomer).subscribe(
       {
         next: () => {this.toastr.success("New customer created", "Success!"), this.GetCustomers()
@@ -75,6 +82,10 @@ export class MainCustomerPageComponent {
 
   UpdateCustomer()
   {
+    this.ValidateEditedCustomer();
+
+    if(this.abortEditingCustomer){return;}
+    
     this.customerService.UpdateCustomer(this.editedCustomer).subscribe(
       {
         next: () => {this.toastr.success("Customer updated", "Success!"), this.GetCustomers(), this.StopCustomerEditing()},
@@ -94,6 +105,22 @@ export class MainCustomerPageComponent {
   StopCustomerEditing()
   {
     this.editedCustomer = {Id: 0, Name: "", Address: "", Town: ""}, this.isUpdatingCustomer = false
+  }
+
+  ValidateNewCustomer()
+  {
+    this.abortCreatingCustomer = false
+    if(this.newCustomer.Name == "" || this.newCustomer.Name == null || this.newCustomer.Name == undefined){this.abortCreatingCustomer = true; this.toastr.error("Enter customer name!", "Warning!")}
+    if(this.newCustomer.Address == "" || this.newCustomer.Address == null || this.newCustomer.Address == undefined){this.abortCreatingCustomer = true; this.toastr.error("Enter customer address!", "Warning!")}
+    if(this.newCustomer.Town == "" || this.newCustomer.Town == null || this.newCustomer.Town == undefined){this.abortCreatingCustomer = true; this.toastr.error("Enter customer town!", "Warning!")}
+  }
+
+  ValidateEditedCustomer()
+  {
+    this.abortEditingCustomer = false
+    if(this.editedCustomer.Name == "" || this.editedCustomer.Name == null || this.editedCustomer.Name == undefined){this.abortEditingCustomer = true; this.toastr.error("Enter customer name!", "Warning!")}
+    if(this.editedCustomer.Address == "" || this.editedCustomer.Address == null || this.editedCustomer.Address == undefined){this.abortEditingCustomer = true; this.toastr.error("Enter customer address!", "Warning!")}
+    if(this.editedCustomer.Town == "" || this.editedCustomer.Town == null || this.editedCustomer.Town == undefined){this.abortEditingCustomer = true; this.toastr.error("Enter customer town!", "Warning!")}
   }
 
 }

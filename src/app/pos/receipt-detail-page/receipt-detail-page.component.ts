@@ -41,19 +41,25 @@ export class ReceiptDetailPageComponent {
     console.log(this.receipt)
   }
 
-  CalculateReceiptTotals()
-  {
-    for (let i = 0; i < this.receiptItems.length; i++) 
+  CalculateReceiptTotals() {
+    for (let i = 0; i < this.receiptItems.length; i++)
     {
-      this.receiptTotals.TotalDiscounts += +(this.receiptItems[i].discountAmmount.toFixed(2));
-      this.receiptTotals.SubTotal += +(this.receiptItems[i].totalPrice.toFixed(2));
+      this.receiptTotals.TotalDiscounts += this.receiptItems[i].discountAmmount;
+      this.receiptTotals.SubTotal += this.receiptItems[i].totalPrice;
     }
     
-    
     const tax = this.receiptTotals.SubTotal * this.baseTax / 100;
-    this.receiptTotals.Tax = parseFloat(tax.toFixed(2));
-    this.receiptTotals.Total = parseFloat((this.receiptTotals.SubTotal + this.receiptTotals.Tax).toFixed(2))
+    
+
+    this.receiptTotals.Tax = tax;
+    this.receiptTotals.Total = this.receiptTotals.SubTotal + this.receiptTotals.Tax;
+  
+
+    this.receiptTotals.SubTotal = +this.receiptTotals.SubTotal.toFixed(2);
+    this.receiptTotals.Tax = +this.receiptTotals.Tax.toFixed(2);
+    this.receiptTotals.Total = +this.receiptTotals.Total.toFixed(2);
   }
+  
 
   DeleteReceipt(id: number)
   {

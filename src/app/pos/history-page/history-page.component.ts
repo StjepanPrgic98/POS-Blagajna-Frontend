@@ -90,6 +90,7 @@ export class HistoryPageComponent {
     {
         totalPrice += receiptItems[i].totalPrice
     }
+    totalPrice += (totalPrice * 2) / 100
 
     return Number(totalPrice.toFixed(2));
   }
