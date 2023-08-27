@@ -10,6 +10,7 @@ import { CreateCustomerPageComponent } from './customers/create-customer-page/cr
 import { EditCustomerPageComponent } from './customers/edit-customer-page/edit-customer-page.component';
 import { HistoryPageComponent } from './pos/history-page/history-page.component';
 import { ReceiptDetailPageComponent } from './pos/receipt-detail-page/receipt-detail-page.component';
+import { AuthGuard } from './_guards/auth.guard';
 
 const routes: Routes = 
 [
@@ -18,7 +19,7 @@ const routes: Routes =
   {path: "products/create", component: CreateProductPageComponent},
   {path: "products/edit/:name", component: EditProductPageComponent},
 
-  {path: "pos", component: MainPosPageComponent},
+  {path: "pos", component: MainPosPageComponent, canActivate: [AuthGuard]},
   {path: "pos/history", component: HistoryPageComponent},
   {path: "pos/detail", component: ReceiptDetailPageComponent},
 
