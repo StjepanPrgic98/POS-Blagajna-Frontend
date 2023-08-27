@@ -63,4 +63,6 @@ export class ReceiptDetailPageComponent {
         error: error => {this.toastr.error("Failed to delete receipt", "Warning!"), console.log(error)}
       })
   }
+
+ 
 }

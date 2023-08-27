@@ -12,6 +12,13 @@
     font-size: 20px;
 }
 
+.add-quantity-button
+{
+  background-color: rgb(0, 0, 0);
+    color: white;
+    font-weight: bold;
+    font-size: 17px;
+}
 .scrollable-container {
     max-height: 500px; /* Adjust the desired height */
     overflow-y: auto;

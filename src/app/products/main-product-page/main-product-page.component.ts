@@ -29,6 +29,8 @@ export class MainProductPageComponent {
   editedProduct: EditedProduct = {Id: 0, Code: 0, Name: "", UnitOfMeasure: "", Price: 0, StorageQuantity: 0}
   abortProductEdit: boolean = false
 
+  increaseProductQuantity: number = 0
+
   
   ngOnInit()
   {
@@ -147,6 +149,14 @@ export class MainProductPageComponent {
     this.editedProduct = {Id: 0, Code: 0, Name: "", UnitOfMeasure: "", Price: 0, StorageQuantity: 0}
     this.newProduct = {Code: undefined, Name: "", UnitOfMeasure: "", Price: undefined, StorageQuantity: undefined}
     this.isUpdatingProduct = false
+  }
+
+  IncreaseProductQuantity()
+  {
+    const backupQuantity = this.editedProduct.StorageQuantity
+    this.editedProduct.StorageQuantity += this.increaseProductQuantity
+    if(this.editedProduct.StorageQuantity < 0){this.editedProduct.StorageQuantity = backupQuantity; this.toastr.warning("The quantity can not be a negative!", "Warning")}
+    this.increaseProductQuantity = 0
   }
 
 

@@ -15,17 +15,30 @@ import { AuthGuard } from './_guards/auth.guard';
 const routes: Routes = 
 [
   {path: "", component: HomePageComponent},
-  {path: "products", component: MainProductPageComponent},
-  {path: "products/create", component: CreateProductPageComponent},
-  {path: "products/edit/:name", component: EditProductPageComponent},
 
-  {path: "pos", component: MainPosPageComponent, canActivate: [AuthGuard]},
-  {path: "pos/history", component: HistoryPageComponent},
-  {path: "pos/detail", component: ReceiptDetailPageComponent},
+  {
+    path: "",
+    runGuardsAndResolvers: "always",
+    canActivate: [AuthGuard],
+    children: 
+    [
+      {path: "products", component: MainProductPageComponent},
+      {path: "products/create", component: CreateProductPageComponent},
+      {path: "products/edit/:name", component: EditProductPageComponent},
+    
+      {path: "pos", component: MainPosPageComponent, canActivate: [AuthGuard]},
+      {path: "pos/history", component: HistoryPageComponent},
+      {path: "pos/detail", component: ReceiptDetailPageComponent},
+    
+      {path: "customers", component: MainCustomerPageComponent},
+      {path: "customers/create", component: CreateCustomerPageComponent},
+      {path: "customers/edit/:name", component: EditCustomerPageComponent},
+    ]
+  },
 
-  {path: "customers", component: MainCustomerPageComponent},
-  {path: "customers/create", component: CreateCustomerPageComponent},
-  {path: "customers/edit/:name", component: EditCustomerPageComponent},
+  
+
+  {path: "**", component: HomePageComponent, pathMatch: "full"}
 ];
 
 @NgModule({

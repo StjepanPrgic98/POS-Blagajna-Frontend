@@ -33,6 +33,7 @@ export class HistoryPageComponent {
   dateChanged: boolean = false;
 
   date: any;
+  dateStringForDisplay: string = "";
   bsInlineValue = new Date();
   bsConfig: Partial<BsDatepickerConfig> | undefined;
 
@@ -50,7 +51,7 @@ export class HistoryPageComponent {
     if(!this.purchaseHistoryFilters){return}
     this.receiptService.GetReceiptsForChosenDate(purchaseHistoryFilters, option).subscribe(
       {
-        next: response => {this.receiptHistory = response, this.receipts = response.receipts, console.log(response)},
+        next: response => {this.receiptHistory = response, this.receipts = response.receipts},
         error: error => console.log(error)
       })
   }
@@ -58,6 +59,16 @@ export class HistoryPageComponent {
   GetHistoryFilters()
   {
     this.currentDateTime = new Date();
+    if(this.receiptService.GetHistoryDate() != undefined && this.receiptService.GetHistoryFilterOption() != "")
+    {
+      this.currentDateTime = this.receiptService.GetHistoryDate();
+    }
+    if(this.receiptService.GetHistoryFilterOption() == ""){this.receiptService.SaveHistoryFilterOption("day"), this.FilterHistory("day")}
+    if(this.receiptService.GetHistoryFilterOption() == "month"){this.FilterHistory("month")}
+    if(this.receiptService.GetHistoryFilterOption() == "year"){this.FilterHistory("year")}
+
+    
+    if(!this.currentDateTime){return}
 
     this.purchaseHistoryFilters = 
     {
@@ -65,8 +76,10 @@ export class HistoryPageComponent {
       Month: this.currentDateTime.getMonth() + 1,
       Year: this.currentDateTime.getFullYear()
     }
+
+    this.GetDateStringForDisplay()
     
-    this.GetHistory(this.purchaseHistoryFilters,"day")
+    this.GetHistory(this.purchaseHistoryFilters, this.receiptService.GetHistoryFilterOption())
   }
 
   CalculateReceiptsTotalPrice(receiptItems: ReceiptItem[])
@@ -103,13 +116,14 @@ export class HistoryPageComponent {
     return dateString;
   }
 
+
   FilterHistory(option: string)
   {
     this.ResetHistoryFilterOption()
 
-    if(option == "day"){this.displayHistoryForDay = true}
-    if(option == "month"){this.displayHistoryForMonth = true}
-    if(option == "year"){this.displayHistoryForYear = true}
+    if(option == "day"){this.displayHistoryForDay = true, this.receiptService.SaveHistoryFilterOption("day")}
+    if(option == "month"){this.displayHistoryForMonth = true, this.receiptService.SaveHistoryFilterOption("month")}
+    if(option == "year"){this.displayHistoryForYear = true, this.receiptService.SaveHistoryFilterOption("year")}
 
   }
 
@@ -139,6 +153,9 @@ export class HistoryPageComponent {
       if(this.displayHistoryForDay){this.GetHistory(this.purchaseHistoryFilters, "day")}
       if(this.displayHistoryForMonth){this.GetHistory(this.purchaseHistoryFilters, "month")}
       if(this.displayHistoryForYear){this.GetHistory(this.purchaseHistoryFilters, "year")}
+
+      this.GetDateStringForDisplay()
+      this.receiptService.SaveHistoryDate(date)
     }
 
   }
@@ -147,6 +164,23 @@ export class HistoryPageComponent {
   {
     this.receiptService.SaveReceiptInCache(receipt)
     this.router.navigateByUrl("pos/detail")
+  }
+
+  GetDateStringForDisplay()
+  {
+    if(!this.purchaseHistoryFilters){return}
+    if(this.displayHistoryForDay)
+    {
+      this.dateStringForDisplay = this.purchaseHistoryFilters.Day + "-" + this.purchaseHistoryFilters.Month + "-" + this.purchaseHistoryFilters.Year
+    }
+    if(this.displayHistoryForMonth)
+    {
+      this.dateStringForDisplay = this.purchaseHistoryFilters.Month + "-" + this.purchaseHistoryFilters.Year
+    }
+    if(this.displayHistoryForYear)
+    {
+      this.dateStringForDisplay = this.purchaseHistoryFilters.Year + ""
+    }
   }
 
   

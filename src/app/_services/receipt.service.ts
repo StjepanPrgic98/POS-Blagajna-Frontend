@@ -15,6 +15,8 @@ export class ReceiptService {
   constructor(private http: HttpClient) { }
 
   receipt: Receipt | undefined
+  historyDate: Date | undefined
+  filterOption: string = ""
 
   baseUrl: string = "http://localhost:5000/api/receipts/"
 
@@ -46,5 +48,23 @@ export class ReceiptService {
   public GetCachedReceipt()
   {
     return this.receipt
+  }
+
+  public SaveHistoryDate(date: Date)
+  {
+    this.historyDate = date
+  }
+  public SaveHistoryFilterOption(filter: string)
+  {
+    this.filterOption = filter
+  }
+
+  public GetHistoryDate()
+  {
+    return this.historyDate
+  }
+  public GetHistoryFilterOption()
+  {
+    return this.filterOption
   }
 }
