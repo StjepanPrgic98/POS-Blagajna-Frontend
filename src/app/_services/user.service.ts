@@ -4,6 +4,7 @@ import { RegisterUser } from '../_models/users/RegisterUser';
 import { Observable } from 'rxjs';
 import { User } from '../_models/users/User';
 import { LoginUser } from '../_models/users/LoginUser';
+import { environment } from 'src/environment/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  baseUrl: string = "http://localhost:5000/api/users/"
+  baseUrl: string = environment.baseUrl + "users/"
 
   user: User = {username: ""}
 

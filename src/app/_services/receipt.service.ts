@@ -6,6 +6,7 @@ import { PurchaseHistoryFilters } from '../_models/date-time/PurchaseHistoryFilt
 import { Receipt } from '../_models/receipts/Receipt';
 import { ReceiptHistory } from '../_models/receipts/ReceiptHistory';
 import { UrlMatchResult } from '@angular/router';
+import { environment } from 'src/environment/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class ReceiptService {
   historyDate: Date | undefined
   filterOption: string = ""
 
-  baseUrl: string = "http://localhost:5000/api/receipts/"
+  baseUrl: string = environment.baseUrl + "receipts/"
 
   public GetNewReceiptNumber(): Observable<number>
   {

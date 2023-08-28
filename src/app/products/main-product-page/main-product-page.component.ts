@@ -111,8 +111,6 @@ export class MainProductPageComponent {
       StorageQuantity: product.storageQuantity,
       UnitOfMeasure: product.unitOfMeasure
     }
-
-    console.log(this.editedProduct)
   }
 
   ValidateEditedProduct(product: EditedProduct)

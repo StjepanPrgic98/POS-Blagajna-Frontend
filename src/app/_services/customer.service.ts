@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Customer } from '../_models/customers/Customer';
 import { NewCustomer } from '../_models/customers/NewCustomer';
 import { EditedCustomer } from '../_models/customers/EditedCustomer';
+import { environment } from 'src/environment/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class CustomerService {
 
   constructor(private http: HttpClient) { }
 
-  baseUrl: string = "http://localhost:5000/api/customers/"
+  baseUrl: string = environment.baseUrl + "customers/"
 
   public GetAllCustomers(): Observable<Customer[]>
   {

@@ -41,8 +41,6 @@ export class ReceiptDetailPageComponent {
     this.receiptItems = this.receipt.receiptItems
 
     this.CalculateReceiptTotals()
-
-    console.log(this.receipt)
   }
 
   CalculateReceiptTotals() {

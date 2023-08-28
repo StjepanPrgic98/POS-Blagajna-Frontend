@@ -308,19 +308,12 @@ export class MainPosPageComponent {
 
   CreateReceipt(receipt: NewReceipt)
   {
-    console.log(receipt)
-    
     this.receiptService.CreateReceipt(receipt).subscribe(
       {
         next: () => {this.toastr.success("Purchase complete", "Success!", {positionClass: "toast-top-center"}), this.ResetPOSData()},
         error: error => {this.toastr.error("Purchase failed", "Warning!"), console.log(error)}
       })
     
-  }
-
-  CheckIfStorageQuantityIsSufficient()
-  {
-
   }
 
   ResetPOSData()

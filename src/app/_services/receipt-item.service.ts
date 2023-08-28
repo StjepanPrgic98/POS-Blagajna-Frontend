@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ReceiptItem } from '../_models/receipt-items/ReceiptItem';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environment/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class ReceiptItemService {
 
   constructor(private http: HttpClient) { }
 
-  baseUrl: string = "http://localhost:5000/api/receiptItems/"
+  baseUrl: string = environment.baseUrl + "receiptItems/"
 
   public CreateMultiple(receipt: ReceiptItem[]): Observable<ReceiptItem[]>
   {

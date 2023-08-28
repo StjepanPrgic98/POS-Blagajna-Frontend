@@ -4,6 +4,7 @@ import { Observable, map } from 'rxjs';
 import { NewProduct } from '../_models/products/NewProduct';
 import { Product } from '../_models/products/Product';
 import { EditedProduct } from '../_models/products/EditedProduct';
+import { environment } from 'src/environment/environment';
 
 
 @Injectable({
@@ -13,7 +14,7 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
 
-  baseUrl: string = "http://localhost:5000/api/products/"
+  baseUrl: string = environment.baseUrl + "products/"
 
   public GetProducts(): Observable<any>
   {
