@@ -24,6 +24,8 @@ export class HomePageComponent {
 
   onlineUser: User | undefined
 
+  abortLogin: boolean = false
+
   ngOnInit()
   {
     if(this.userService.GetOnlineUser().username == ""){return;}
@@ -39,6 +41,9 @@ export class HomePageComponent {
   Register()
   {
     this.ValidateNewUser()
+
+    if(this.abortRegister){return;}
+
     this.userService.Register(this.newUser).subscribe(
       {
         next: response => 
@@ -54,12 +59,26 @@ export class HomePageComponent {
 
   ValidateNewUser()
   {
+    this.abortRegister = false
+
+    if(this.newUser.email == "" || this.newUser.email == null || this.newUser.email == undefined){this.toastr.error("Enter email!", "Warning!"), this.abortRegister = true}
+    if(this.newUser.password == "" || this.newUser.password == null || this.newUser.password == undefined){this.toastr.error("Enter password!", "Warning!"), this.abortRegister = true}
+    if(this.newUser.username == "" || this.newUser.username == null || this.newUser.username == undefined){this.toastr.error("Enter username!", "Warning!"), this.abortRegister = true}
+    if(this.confirmPassword == "" || this.confirmPassword == null || this.confirmPassword == undefined){this.toastr.error("Confirm password!", "Warning!"), this.abortRegister = true}
+
     if(this.newUser.password != this.confirmPassword)
     {
       this.toastr.error("Passwords do not match", "Warning"); 
       this.abortRegister = true; 
       return
     }
+  }
+
+  ValidateLoginUser()
+  {
+    this.abortLogin = false
+    if(this.loginUser.email == "" || this.loginUser.email == null || this.loginUser.email == undefined){this.abortLogin = true, this.toastr.error("Enter email!", "Warning")}
+    if(this.loginUser.password == "" || this.loginUser.password == null || this.loginUser.password == undefined){this.abortLogin = true, this.toastr.error("Enter password!", "Warning")}
   }
 
   ResetUserObjects()
@@ -71,7 +90,10 @@ export class HomePageComponent {
 
   Login()
   {
-    console.log(this.loginUser)
+    this.ValidateLoginUser()
+
+    if(this.abortLogin){return;}
+
     this.userService.Login(this.loginUser).subscribe(
       {
         next: response => 

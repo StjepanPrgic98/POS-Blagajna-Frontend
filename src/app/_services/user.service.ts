@@ -15,7 +15,7 @@ export class UserService {
 
   baseUrl: string = environment.baseUrl + "users/"
 
-  user: User = {username: ""}
+  user: User = {username: "", tokenString: ""}
 
   public Register(user: RegisterUser): Observable<User>
   {
@@ -29,7 +29,7 @@ export class UserService {
 
   public Logout()
   {
-    this.user = {username: ""}
+    this.user = {username: "", tokenString: ""}
   }
 
   public SetOnlineUser(onlineUser: User)

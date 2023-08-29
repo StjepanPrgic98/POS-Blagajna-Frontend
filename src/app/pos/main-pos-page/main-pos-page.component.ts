@@ -30,7 +30,7 @@ export class MainPosPageComponent {
 
   }
 
-  onlineUser: User = {username: ""}
+  onlineUser: User = {username: "", tokenString: ""}
 
   products: Product[] | undefined
   productChosen: Product | undefined
