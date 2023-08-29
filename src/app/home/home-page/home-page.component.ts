@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { LoginUser } from 'src/app/_models/users/LoginUser';
@@ -111,5 +112,17 @@ export class HomePageComponent {
   {
     this.userService.Logout();
     this.onlineUser = undefined;
+  }
+
+
+  CalculateLoginTime()
+  {
+    const datePipe = new DatePipe('en-US');
+
+    const date = new Date();
+
+    const timeString = datePipe.transform(date, 'HH:mm');
+
+    return timeString;
   }
 }

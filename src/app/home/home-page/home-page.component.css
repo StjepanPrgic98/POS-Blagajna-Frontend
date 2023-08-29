@@ -40,6 +40,22 @@
   text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;
 }
 
+.login-title-user
+{
+    font-weight: bold;
+    font-size: 35px;
+    color: rgba(0, 0, 0, 0.795);
+    text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;
+}
+
+.login-time
+{
+    font-weight: bold;
+    font-size: 15px;
+    color: rgba(0, 0, 0, 0.795);
+    text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;
+}
+
 .login-button
 {
     background-color: rgb(0, 0, 0);

@@ -36,10 +36,12 @@
     </div>
     <div class="col-md-8 login-section" style="height: 100vh;" *ngIf="onlineUser">
         <div class="row text-center" style="margin-top: 170px;">
+            <div class="col-md-12"><h1 style="margin-top: 50px;" class="login-title">Current employee on shift:</h1></div>
             <div class="col-md-2"></div>
             <div class="col-md-8">
-                <h1 style="margin-top: 70px;" class="login-title">Logged in as {{onlineUser.username}}</h1>
+                <h1 style="margin-top: 30px;" class="login-title-user">- {{onlineUser.username}} -</h1>
             </div>
+            <div class="col-md-12"><h1 style="margin-top: 20px;" class="login-time">Time started: {{CalculateLoginTime()}}</h1></div>
         </div>
         <div class="row">
             <div class="col-md-3"></div>
